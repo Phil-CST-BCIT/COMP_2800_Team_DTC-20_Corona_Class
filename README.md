@@ -5,6 +5,8 @@ Corona Class is a `<web app>` that allows `<any people>` to view the statics rel
 
 The app provides an open API for other web developsers to use the data visualization in their apps.
 
+The UI of the APP is primarily built with React framework.
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
