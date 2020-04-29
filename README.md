@@ -1,21 +1,22 @@
 # Corona Class
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-Corona Class is a `<utility/tool/feature>` that allows `<insert_target_audience>` to do `<action/task_it_does>`.
+Corona Class is a `<web app>` that allows `<any people>` to view the statics related to COVID-19 and learn the known facts about the virus and current situation.
 
-Additional line of information text about what the project does. Your introduction should be around 2 or 3 sentences. Don't go overboard, people won't read it.
+The app provides an open API for other web developsers to use the data visualization in their apps.
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 <!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have installed the latest version of `<coding_language/dependency/requirement_1>`
-* You have a `<Windows/Linux/Mac>` machine. State which OS is supported/which is not.
+
+* You have a smartphone with latest version of a web browser to view the app.
+* You have a `<Window/Mac>` computer to implement the data visualization.
 * You have read `<guide/link/documentation_related_to_project>`.
 
-## Installing <project_name>
+## Implementing <Corona Class data graphics>
 
-To install <project_name>, follow these steps:
+To install <Corona Class data graphics>, follow these steps:
 
 Linux and macOS:
 ```
