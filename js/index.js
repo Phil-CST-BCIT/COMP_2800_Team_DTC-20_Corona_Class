@@ -1,5 +1,4 @@
-// in the name of god
-
+// contral the state of the menu list that is either open or closed
 var isOpen = true;
 
 $(function () {
