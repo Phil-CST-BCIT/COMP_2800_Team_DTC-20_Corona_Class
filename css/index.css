@@ -84,13 +84,6 @@ video {
   border: 0;
   font-size: 1em;
   font-family: "Oxygen", sans-serif;
-<<<<<<< HEAD
-  vertical-align: baseline;
-}
-
-body {
-  background: url(./images/bookCoverBg.jpg) no-repeat center center fixed;
-=======
 }
 
 body {
@@ -100,93 +93,10 @@ body {
 
 .wrapper {
   background: url(./images/bookCoverBg.jpg) no-repeat center center local;
->>>>>>> phil_feature1
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-<<<<<<< HEAD
-}
-
-main {
-  display: grid;
-  grid-template-areas:
-    "header"
-    "article"
-    "footer";
-}
-
-header {
-  grid-area: header;
-}
-article {
-  grid-area: article;
-}
-footer {
-  grid-area: footer;
-}
-
-@media only screen and (max-width: 376px) {
-  main {
-    height: 100%;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas:
-      "header header header"
-      "article article article"
-      "footer footer footer";
-    justify-items: center;
-  }
-
-  header {
-    padding-top: 100px;
-    padding-bottom: 150px;
-  }
-
-  .line1 {
-    position: inherit;
-    width: 37px;
-    height: 0px;
-    border: 2px solid #000000;
-    margin-bottom: 6px;
-  }
-
-  .line2 {
-    position: inherit;
-    width: 22px;
-    height: 0px;
-    border: 2px solid #000000;
-    margin-bottom: 6px;
-  }
-
-  .line3 {
-    position: inherit;
-    width: 9px;
-    height: 0px;
-    border: 2px solid #000000;
-  }
-
-  article {
-    font-size: xx-large;
-    font-weight: 300;
-    padding-top: 30px;
-    padding-bottom: 50px;
-  }
-
-  footer {
-    padding-top: 150px;
-    padding-bottom: 50px;
-  }
-
-  .statsBtn {
-    position: inherit;
-    width: 120px;
-    height: 44px;
-    background: #393a3c;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid black;
-    border-radius: 5%;
-  }
-=======
   position: relative;
   width: 100%;
   height: 100%;
@@ -339,5 +249,4 @@ ul > li {
   background-color: #393a3c;
   box-shadow: 2px 2px 5px 2px black;
   font-size: x-large;
->>>>>>> phil_feature1
 }
