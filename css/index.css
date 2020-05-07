@@ -130,10 +130,16 @@ ul {
   /*   font-weight:bold; */
   color: black;
 }
-ul > li {
+ul > a > li {
   display: none;
   margin: 1%;
   cursor: pointer;
+}
+
+/* added for menu a tags, may want to make this a class */
+a {
+  text-decoration: none;
+  color: black;
 }
 
 .topPart,

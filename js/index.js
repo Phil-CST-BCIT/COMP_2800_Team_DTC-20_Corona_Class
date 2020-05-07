@@ -10,9 +10,9 @@ $(function () {
     isOpen = !isOpen;
   });
 
-  $("ul>li").on("click", function () {
+  $("ul>a>li").on("click", function () {
     $(this).animate({ marginLeft: "27%" });
-    $("ul>li").animate({ marginLeft: "0" }, 111).delay(111);
+    $("ul>a>li").animate({ marginLeft: "0" }, 111).delay(111);
   });
 });
 
@@ -34,7 +34,7 @@ function effect(open, barsTiming) {
 
     var t = 0;
     $("ul").removeAttr("style").delay().animate({ top: "37%" });
-    $("ul>li")
+    $("ul>a>li")
       .removeAttr("style")
       .each(function () {
         $(this).fadeIn().animate({ margin: "1%", padding: "5px" });
@@ -45,7 +45,7 @@ function effect(open, barsTiming) {
 
     $("ul").animate({ top: "23%" });
 
-    $("ul>li").each(function () {
+    $("ul>a>li").each(function () {
       $(this)
         .delay((t += Math.random() * 111))
         .fadeOut()
