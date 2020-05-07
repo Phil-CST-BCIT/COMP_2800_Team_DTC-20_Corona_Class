@@ -1,0 +1,23 @@
+h1 {
+    /* position: relative;
+    margin: 5em auto 0em; */
+    /*   top:37vh; */
+    text-align: center;
+    font-size: 3em;
+    color: black;
+    margin: 30px;
+}
+
+h3 {
+    /* position: relative; */
+    /* margin: 5em auto 0em; */
+    /*   top:37vh; */
+    text-align: center;
+    font-size: 2em;
+    color: black;
+}
+
+p {
+    margin: 10px;
+    text-align: center;
+}
