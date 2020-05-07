@@ -52,3 +52,13 @@ a {
     flex-grow: 2;
     text-align: right;
 }
+
+.not-attempted {
+    /* unopened quiz */
+    color: #D22C2C;
+}
+
+.completed {
+    /* quiz has been completed and submitted before */
+    color: black;
+}
