@@ -30,6 +30,8 @@ function signUp() {
   promise.catch((e) => alert(e.message));
 
   alert("Successfully Signed Up");
+
+  window.location.href = "mock_login.html";
 }
 
 function moveToSignIn() {
