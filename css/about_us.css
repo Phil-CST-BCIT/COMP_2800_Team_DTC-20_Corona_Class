@@ -17,7 +17,49 @@ h3 {
     color: black;
 }
 
+img {
+    width: 115px;
+    height: 115px;
+    margin: auto;
+    display: block;
+    border: 3px solid black;
+}
+
+.about-p {
+    padding: 10px 0px 10px 0px;
+    background-color: rgba(93, 95, 92, 0.8);
+}
+
 p {
+    /* color: white; */
     margin: 10px;
     text-align: center;
+}
+
+.members {
+    margin-top: 20px;
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+h4 {
+    text-align: center;
+}
+
+.backbtn {
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.backbtn > a > button {
+  width: 100px;
+  padding: 5px 25px 5px 25px;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: #393a3c;
+  box-shadow: 2px 2px 5px 2px black;
+  font-size: x-large;
 }
