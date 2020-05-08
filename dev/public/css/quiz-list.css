@@ -1,0 +1,64 @@
+.quiz-item {
+    /* Background styling for list items, plus margins to separate */
+    background-color: #5d5f5c;
+    border: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.quiz-item > span {
+    /* Styling for contents of list items */
+    display: flex;
+    justify-content: space-between;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+span > p {
+    /* Make list text semi-bold */
+    font-weight: 600;
+}
+
+.quiz-list-header {
+    /* Partially copied from index.css (see: .wrapper .welcome h1) */
+    /* position: relative; */
+    /* margin: 5em auto 0em; */
+    /*   top:37vh; */
+    /* width: 50%; */
+    /* margin: auto; */
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 3em;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.quiz-name {
+    /* List item p tags are in 3:1:2 ratio */
+    flex-grow: 3;
+}
+
+.quiz-score {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.quiz-status {
+    flex-grow: 2;
+    text-align: right;
+}
+
+.not-attempted {
+    /* unopened quiz */
+    color: #D22C2C;
+}
+
+.completed {
+    /* quiz has been completed and submitted before */
+    color: black;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel='stylesheet' type='text/css' href='../css/slide-list.css'/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+
+    <title>CoronaClass</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="fas fa-bars bars-cancel">
+        <span class="icon"></span>
+      </div>
+      <ul>
+        <!-- may or may not do nothing -->
+        <a href='../quiz-list/quiz-list.html'>
+          <li>QUIZ</li>
+        </a>
+        <!-- insert actual link below -->
+        <a href='./slide-list.html'>
+          <li>SLIDE</li>
+        </a>
+        <!-- insert actual link below -->
+        <a href='../index/index.html'> 
+          <li>CONTACT</li>
+        </a>
+        <!-- about us page created on a different branch -->
+        <a href ='../about-us/about-us.html'>
+          <li>ABOUT</li>
+        </a>
+        <a href='../login/mock_login.html'>
+          <li>SIGN UP/IN</li>
+        </a>
+      </ul>
+
+      <div class="slide-list-header" aria-hidden="true">
+        <div>
+            <h1>Lessons</h1>
+        </div>
+      </div>
+
+      <div class="slide-list">
+        <!-- Repeat for more slide items -->
+        <a href='./slide1.html'>
+            <div class='slide-item' id='slide1'>
+                <span>
+                    <p class='slide-p slide-name'>Lesson #1</p>
+                    <p class='quiz-p quiz-status not-started'>Not Started</p>
+                </span>
+            </div>
+        </a>
+
+        <a href='./slide1.html'>
+            <div class='slide-item' id='slide2'>
+                <span>
+                    <p class='slide-p slide-name'>Lesson #2</p>
+                    <p class='quiz-p quiz-status not-started'>Not Started</p>
+                </span>
+            </div>
+        </a>
+
+      </div>
+    </div>
+
+    <script src="../js/index.js"></script>
+    <script src=""></script>
+  </body>
+</html>
