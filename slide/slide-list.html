@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel='stylesheet' type='text/css' href='../css/slide-list.css'/>
     <link
       href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
@@ -25,15 +26,16 @@
         <span class="icon"></span>
       </div>
       <ul>
+        <!-- may or may not do nothing -->
         <a href='../quiz-list/quiz-list.html'>
           <li>QUIZ</li>
         </a>
         <!-- insert actual link below -->
-        <a href='../slide/slide-list.html'>
+        <a href='./slide-list.html'>
           <li>SLIDE</li>
         </a>
         <!-- insert actual link below -->
-        <a href='./index.html'> 
+        <a href='../index/index.html'> 
           <li>CONTACT</li>
         </a>
         <!-- about us page created on a different branch -->
@@ -45,13 +47,32 @@
         </a>
       </ul>
 
-      <div class="welcome" aria-hidden="true">
-        <h1>Welcome To</h1>
-        <h3>Corona Class</h3>
+      <div class="slide-list-header" aria-hidden="true">
+        <div>
+            <h1>Lessons</h1>
+        </div>
       </div>
 
-      <div class="statbtn">
-        <button>stats</button>
+      <div class="slide-list">
+        <!-- Repeat for more slide items -->
+        <a href='./slide1.html'>
+            <div class='slide-item' id='slide1'>
+                <span>
+                    <p class='slide-p slide-name'>Lesson #1</p>
+                    <p class='quiz-p quiz-status not-started'>Not Started</p>
+                </span>
+            </div>
+        </a>
+
+        <a href='./slide1.html'>
+            <div class='slide-item' id='slide2'>
+                <span>
+                    <p class='slide-p slide-name'>Lesson #2</p>
+                    <p class='quiz-p quiz-status not-started'>Not Started</p>
+                </span>
+            </div>
+        </a>
+
       </div>
     </div>
 

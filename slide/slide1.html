@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel='stylesheet' type='text/css' href='../css/slide.css'/>
     <link
       href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
@@ -21,38 +22,46 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="fas fa-bars bars-cancel">
-        <span class="icon"></span>
-      </div>
-      <ul>
-        <a href='../quiz-list/quiz-list.html'>
-          <li>QUIZ</li>
-        </a>
-        <!-- insert actual link below -->
-        <a href='../slide/slide-list.html'>
-          <li>SLIDE</li>
-        </a>
-        <!-- insert actual link below -->
-        <a href='./index.html'> 
-          <li>CONTACT</li>
-        </a>
-        <!-- about us page created on a different branch -->
-        <a href ='../about-us/about-us.html'>
-          <li>ABOUT</li>
-        </a>
-        <a href='../login/mock_login.html'>
-          <li>SIGN UP/IN</li>
-        </a>
-      </ul>
+        <div id='quitBtn'>
+            <a href='./slide-list.html'>
+                <button>Quit</button>
+            </a>
+        </div>
 
-      <div class="welcome" aria-hidden="true">
-        <h1>Welcome To</h1>
-        <h3>Corona Class</h3>
+      <div id='slideContent'>
+        <div class="slide-content slide-start-header" aria-hidden="true">
+          <h1>LESSON #1</h1>
+        </div>
+        <div class='slide-content'>
+          <h2 id='slideName'>Slide 1</h2>
+        </div>
+        <div class='slide-content'>
+          <h3>
+            This is the content of this slide page.
+          </h3>
+        </div>
       </div>
 
-      <div class="statbtn">
-        <button>stats</button>
+      <div id='imgbox'>
+          <img src='../css/images/washing-hands.png'/>
       </div>
+
+      <div id='slideNav'>
+
+        <div class='nav-btn' id='backbtn'>
+          <a href='./slide1.html'>
+            <button>Back</button>
+          </a>
+        </div>
+
+        <div class='nav-btn' id='nextbtn'>
+          <a href='./slide1.html'>
+            <button>Next</button>
+          </a>
+        </div>
+
+      </div>
+
     </div>
 
     <script src="../js/index.js"></script>
