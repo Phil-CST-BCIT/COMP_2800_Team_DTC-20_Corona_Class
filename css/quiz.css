@@ -1,14 +1,64 @@
-.quiz-item {
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 1fr);
+}
+
+#controlBtns {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* copied from quiz-start.css */
+#controlBtns > a > button {
+    width: 150px;
+    padding: 5px 25px 5px 25px;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: #393a3c;
+    box-shadow: 2px 2px 5px 2px black;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+#questionSelector {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#questionSelector > span {
+    background-color: #5d5f5c;
+    border: 2px solid black;
+    padding: 7px;
+    margin-bottom: 50px;
+}
+
+#questionInfo {
+    text-align: center;
+    margin-bottom: 50px;
+    grid-row: 3 / span 2;
+}
+
+.option-list {
+    grid-row: 5 / span 4;
+}
+
+.option-item {
     /* Background styling for list items, plus margins to separate */
     background-color: #5d5f5c;
     border: 2px solid black;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
-.quiz-item > span {
+.option-item > span {
     /* Styling for contents of list items */
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding-left: 6px;
     padding-right: 6px;
     margin-top: 10px;
@@ -36,21 +86,6 @@ span > p {
 a {
     text-decoration: none;
     color: black;
-}
-
-.quiz-name {
-    /* List item p tags are in 3:1:2 ratio */
-    flex-grow: 3;
-}
-
-.quiz-score {
-    flex-grow: 1;
-    text-align: center;
-}
-
-.quiz-status {
-    flex-grow: 2;
-    text-align: right;
 }
 
 .not-attempted {
