@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 app.use(express.static("public"));
 
@@ -30,4 +30,4 @@ app.get("/aboutUs", (req, res) => {
   res.render("pages/aboutUs");
 });
 
-app.listen(port);
+app.listen(port, console.log(`server is running at ${port}`));
