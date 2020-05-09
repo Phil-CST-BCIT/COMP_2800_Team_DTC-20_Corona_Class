@@ -18,16 +18,4 @@ app.get("/index", (req, res) => {
   res.render("pages/index");
 });
 
-app.get("/login", (req, res) => {
-  res.render("pages/login");
-});
-
-app.get("/signUp", (req, res) => {
-  res.render("pages/signUp");
-});
-
-app.get("/aboutUs", (req, res) => {
-  res.render("pages/aboutUs");
-});
-
 app.listen(port, console.log(`server is running at ${port}`));
