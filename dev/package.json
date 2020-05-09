@@ -2,9 +2,9 @@
   "name": "corona_class",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "/dev/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node /dev/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
