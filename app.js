@@ -10,12 +10,16 @@ app.get("/", (req, res) => {
   res.render("pages/index");
 });
 
+app.get("/index", (req, res) => {
+  res.render("pages/index");
+});
+
 app.get("/graph", (req, res) => {
   res.render("pages/graph");
 });
 
-app.get("/index", (req, res) => {
-  res.render("pages/index");
+app.get("/aboutUs", (req, res) => {
+  res.render("pages/aboutUs");
 });
 
 app.listen(port, console.log(`server is running at ${port}`));
