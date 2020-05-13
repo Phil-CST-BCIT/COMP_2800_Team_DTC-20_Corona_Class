@@ -1,10 +1,12 @@
 let score = 0;
 let id = 0;
-let interval = setInterval;
+let interval;
+let startGame = () => {
+  interval = setInterval(setImage, 3000);
+};
 $(document).ready(function () {
-  setTimeout(interval(setImage, 10000), 10000);
+  setTimeout(startGame, 10000);
 });
-
 function setImage() {
   let img = $(
     `<img src='/css/images/virus.png' id='${++id}' class='virus' style='left:${randomLeft()}; top:${randomTop()}; position:absolute; width:75px;' />`
@@ -18,6 +20,10 @@ function setImage() {
       score++;
       console.log($(this).attr("id"), score);
       $(this).remove();
+      if (score > 4) {
+        $(".virus").remove();
+        clearInterval(interval);
+      }
     });
 }
 
