@@ -24,6 +24,14 @@ app.get("/aboutUs", (req, res) => {
   res.render("pages/aboutUs");
 });
 
+app.get("/slideList", (req, res) => {
+  res.render("pages/slideList");
+});
+
+app.get("/quizStart", (req, res) => {
+  res.render("pages/quizStart");
+});
+
 app.get("/quiz", (req, res) => {
   res.render("pages/quiz");
 });
