@@ -17,8 +17,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
-
-        <title>CoronaClass</title>
+        <script type='text/javascript' src="/js/quiz.js"></script>
+        <title>CoronaClass Quiz</title>
     </head>
     <body>
         <div class="wrapper">
@@ -48,8 +48,7 @@
                 <div class='question-info'>
                     <p id='question'>
                         <!-- Question contents, placeholder -->
-                            This is the content of this question?
-                            This extends the question to the next line? This sentence should appear on the third line?
+                            <%= question %>
                     </p>
                 </div>
             </div>
@@ -59,25 +58,25 @@
                     <!-- div id's are formatted 'optX', p id's are formatted 'option-x' -->
                     <div class='option-item' id='optA'>
                         <li>
-                            <p name='option-a' id='option-a'>Answer 1</p>
+                            <p name='option-a' id='option-a'><%= options[0] %></p>
                         </li>
                     </div>
 
                     <div class='option-item' id='optB'>
                         <li>
-                            <p name='option-b' id='option-b'>Answer 2</p>
+                            <p name='option-b' id='option-b'><%= options[1] %></p>
                         </li>
                     </div>
                 
                     <div class='option-item' id='optC'>
                             <li>
-                            <p name='option-c' id='option-c'>Answer 3</p>
+                            <p name='option-c' id='option-c'><%= options[2] %></p>
                         </li>
                     </div>
 
                     <div class='option-item' id='optD'>
                         <li>
-                            <p name='option-d' id='option-d'>Answer 4</p>
+                            <p name='option-d' id='option-d'><%= options[3] %></p>
                         </li>
                     </div>
 
@@ -86,6 +85,5 @@
         </div>
 
     <!-- <script src="/js/index.js"></script> -->
-    <script src=""></script>
   </body>
 </html>

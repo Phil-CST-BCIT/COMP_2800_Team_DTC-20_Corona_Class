@@ -31,7 +31,7 @@
     text-align: center;
     font-size: 28px;
     margin-bottom: 50px;
-    grid-row: 3 / span 4;
+    grid-row: 3 / span 3;
 }
 
 #question {
@@ -39,7 +39,7 @@
 }
 
 .option-list {
-    grid-row: 7 / span 4;
+    grid-row: 6 / span 4;
     /* overflow property may be useful for longer answers, but looks bad */
     /* overflow-y: scroll; */
 }
