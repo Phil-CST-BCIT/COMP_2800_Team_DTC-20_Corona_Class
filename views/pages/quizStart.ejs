@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- currently html only, reefactor some tags/add styling to incorporate ejs -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -27,21 +26,11 @@
         <span class="icon"></span>
       </div>
       <ul>
-        <a href='/quizStart'>
-          <li>QUIZ</li>
-        </a>
-        <a href='/slideList'>
-          <li>SLIDE</li>
-        </a>
-        <a href='/aboutUs'> 
-          <li>CONTACT</li>
-        </a>
-        <a href ='/aboutUs'>
-          <li>ABOUT</li>
-        </a>
-        <a href='/login'>
-          <li>SIGN UP/IN</li>
-        </a>
+        <li><a href="/quizStart">QUIZ</a></li>
+        <li><a href="/slideList">SLIDE</a></li>
+        <li><a href="/aboutUs">CONTACT</a></li>
+        <li><a href="/aboutUs">ABOUT</a></li>
+        <li><a href="/login">SIGN UP/IN</a></li>
       </ul>
 
       <div id='quizInfo'>
@@ -49,11 +38,11 @@
           <h1>BEGIN QUIZ</h1>
         </div>
         <div class='quiz-info quiz-start-name'>
-          <h2 id='quizName'>Quiz #1</h2>
+          <h2 id='quizName'>Ready to test your knowledge?</h2>
         </div>
         <div class='quiz-info quiz-start-score'>
           <h3>
-            This quiz is out of 5 points.
+            This quiz has five randomly selected multiple choice questions.
           </h3>
         </div>
         <div class='quiz-info quiz-start-status'>
@@ -65,13 +54,13 @@
       <div id='quizBtnBox'>
 
         <div class='quiz-btn' id='backbtn'>
-          <a href='./quiz-list.html'>
+          <a href='/index'>
             <button>Back</button>
           </a>
         </div>
 
         <div class='quiz-btn' id='startbtn'>
-          <a href='./quiz1.html'>
+          <a href='/quiz'>
             <button>Start</button>
           </a>
         </div>
@@ -80,7 +69,7 @@
 
     </div>
 
-    <script src="../js/index.js"></script>
+    <script src="/js/index.js"></script>
     <script src=""></script>
   </body>
 </html>

@@ -36,4 +36,8 @@ app.get("/quiz", (req, res) => {
   res.render("pages/quiz");
 });
 
+app.get("/quizScore", (req, res) => {
+  res.render("pages/quizScore");
+});
+
 app.listen(port, console.log(`server is running at ${port}`));

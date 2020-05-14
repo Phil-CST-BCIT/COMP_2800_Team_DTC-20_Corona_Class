@@ -1,0 +1,72 @@
+/* styling for quiz score (results) page */
+
+#home {
+    margin-top: 65px;
+    margin-bottom: 30px;
+}
+
+#scoreInfo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    padding: 30px 0px 30px 0px;
+    margin: auto;
+    color: white;
+    background-color: #393a3c;
+}
+
+.info > h2 {
+    font-size: 2em;
+}
+
+.quiz-info > h3 {
+    font-size: 1.2em;
+}
+
+#title {
+    /* Partially copied from index.css (see: .wrapper .welcome h1) */
+    /* position: relative; */
+    /* margin: 5em auto 0em; */
+    /*   top:37vh; */
+    /* width: 50%; */
+    /* margin: auto; */
+    /* background-color: #5d5f5c; */
+    margin-bottom: 20px;
+    font-size: 3em;
+    color: black;
+}
+
+#quizSummary {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.bottom-box {
+    text-align: center;
+    margin: auto;
+}
+
+#tryAgain {
+    margin-bottom: 30px;
+}
+
+.btn {
+    text-align: center;
+}
+
+a > button {
+    width: 100px;
+    padding: 5px 25px 5px 25px;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: #393a3c;
+    box-shadow: 2px 2px 5px 2px black;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6, p, input, button {
+    color: white;
+}

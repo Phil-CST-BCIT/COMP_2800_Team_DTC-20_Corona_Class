@@ -1,1 +1,61 @@
 /* styling for quiz start page */
+
+/* Styling for the quiz preview page. */
+
+#quizInfo {
+    text-align: center;
+}
+
+.quiz-info > h2 {
+    font-size: 2em;
+}
+
+.quiz-info > h3 {
+    font-size: 1.2em;
+}
+
+.quiz-start-header {
+    /* Partially copied from index.css (see: .wrapper .welcome h1) */
+    /* position: relative; */
+    /* margin: 5em auto 0em; */
+    /*   top:37vh; */
+    /* width: 50%; */
+    /* margin: auto; */
+    /* background-color: #5d5f5c; */
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 3em;
+}
+
+/* copied from index.css (see: .statbtn and .statbtn > button) */
+#quizBtnBox {
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.quiz-btn {
+  margin: 80px auto;
+  text-align: center;
+}
+
+.quiz-btn > a > button {
+  width: 100px;
+  padding: 5px 25px 5px 25px;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: #393a3c;
+  box-shadow: 2px 2px 5px 2px black;
+  font-size: x-large;
+  cursor: pointer;
+}
+
+.quiz-info, input, button {
+    color: white;
+}
+
+h1 {
+    padding: 30px 0px 30px 0px;
+    margin: auto;
+    background-color: #393a3c;
+}
