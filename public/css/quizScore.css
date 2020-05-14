@@ -43,6 +43,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+#questionSummary {
+    overflow-y: scroll;
+}
+
 .bottom-box {
     text-align: center;
     margin: auto;

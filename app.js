@@ -40,4 +40,12 @@ app.get("/quizScore", (req, res) => {
   res.render("pages/quizScore");
 });
 
+app.get("/slideList", (req, res) => {
+  res.render("pages/slideList");
+});
+
+app.get("/slide1", (req, res) => {
+  res.render("pages/slide1");
+});
+
 app.listen(port, console.log(`server is running at ${port}`));

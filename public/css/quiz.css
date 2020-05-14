@@ -40,6 +40,8 @@
 
 .option-list {
     grid-row: 7 / span 4;
+    /* overflow property may be useful for longer answers, but looks bad */
+    /* overflow-y: scroll; */
 }
 
 .option-item {
@@ -57,11 +59,12 @@
 .option-item > li {
     /* Styling for contents of list items */
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     padding-left: 6px;
     padding-right: 6px;
     margin-top: 10px;
     margin-bottom: 10px;
+    
 }
 
  li {
