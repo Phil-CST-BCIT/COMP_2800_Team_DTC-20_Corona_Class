@@ -36,7 +36,8 @@ const questions = [
 ];
 let userAnswers = [];
 let questionsArray = makeQuestionArray(questions);
-let answerArray = makeAnswerArray(questions); 
+let answerArray = makeAnswerArray(questions);
+let quizIndex = 0;
 
 function makeQuestionArray(questions) {
     let questionArray = [];
@@ -67,23 +68,23 @@ $(document).ready(function(){
     $('.option-item').on('click', function() {
 
         console.log('Selected answer: ' + this.innerText);
-        userSelect(this.innerText);
+        ++quizIndex;
 
-        $.ajax('/nextQuestion')
-            .done(function(data) {
-                let options = data.options;
-                $('#question-number').text(data.id);
-                $('#question').text(data.question);
-                $('#option-a').text(options[0]);
-                $('#option-b').text(options[1]);
-                $('#option-c').text(options[2]);
-                $('#option-d').text(options[3])
-                
-            })
-            .fail(function(error){
-                console.log(error);
-            })
+        if (quizIndex <= questions.length) {
+            userSelect(this.innerText);
+        }
 
+        if (quizIndex < questions.length) {
+            let currentQuestion = questions[quizIndex];
+            let options = currentQuestion.options;
+
+            $('#question-number').text(currentQuestion.id);
+            $('#question').text(currentQuestion.question);
+            $('#option-a').text(options[0]);
+            $('#option-b').text(options[1]);
+            $('#option-c').text(options[2]);
+            $('#option-d').text(options[3])              
+        }
     })
 })
 
