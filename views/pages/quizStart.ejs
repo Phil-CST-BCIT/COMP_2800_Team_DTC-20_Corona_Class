@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel='stylesheet' type='text/css' href='../css/quizStart.css'/>
     <link
       href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
@@ -32,17 +33,43 @@
         <li><a href="/login">SIGN UP/IN</a></li>
       </ul>
 
-      <div class="welcome" aria-hidden="true">
-        <h1>Welcome To</h1>
-        <h3>Corona Class</h3>
+      <div id='quizInfo'>
+        <div class="quiz-info quiz-start-header" aria-hidden="true">
+          <h1>BEGIN QUIZ</h1>
+        </div>
+        <div class='quiz-info quiz-start-name'>
+          <h2 id='quizName'>Ready to test your knowledge?</h2>
+        </div>
+        <div class='quiz-info quiz-start-score'>
+          <h3>
+            This quiz has five randomly selected multiple choice questions.
+          </h3>
+        </div>
+        <div class='quiz-info quiz-start-status'>
+          <!-- may implement this in the future -->
+          <!-- <h3 class='not-attempted'>You have not yet attempted this quiz.</h3> -->
+        </div>
       </div>
 
-      <div class="statbtn">
-        <a href="/graph"><button>stats</button></a>
+      <div id='quizBtnBox'>
+
+        <div class='quiz-btn' id='backbtn'>
+          <a href='/index'>
+            <button>Back</button>
+          </a>
+        </div>
+
+        <div class='quiz-btn' id='startbtn'>
+          <a href='/quiz'>
+            <button>Start</button>
+          </a>
+        </div>
+
       </div>
+
     </div>
 
     <script src="/js/index.js"></script>
-    <script src="/js/virus.js"></script>
+    <script src=""></script>
   </body>
 </html>

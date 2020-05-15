@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel='stylesheet' type='text/css' href='css/quiz.css'/>
+        <link
+        href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
+        rel="stylesheet"
+        />
+        <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+        <script type='text/javascript' src="/js/quiz.js"></script>
+        <title>CoronaClass Quiz</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id='controlBtns'>
+                <a href='/quizStart'>
+                    <button>QUIT</button>
+                </a>
+                <!-- Change to submit page -->
+                <a href='/quizScore'>
+                    <button>SUBMIT</button>
+                </a>
+            </div>
+
+            
+
+            <div id='questionInfo'>
+                <div class="question-info" aria-hidden="true">
+                    <h2 id='quizName'>Corona Class Quiz</h2>
+                </div>
+                <div class='question-info'>
+                    <h3>
+                        <!-- Update span for question counter -->
+                        Question #<span name='question-number' id='question-number'><%= id %></span>
+                    </h3>
+                </div>
+                <br/>
+                <div class='question-info'>
+                    <p id='question'>
+                        <!-- Question contents, placeholder -->
+                            <%= question %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="option-list">
+                <ol type='A'>
+                    <!-- div id's are formatted 'optX', p id's are formatted 'option-x' -->
+                    <div class='option-item' id='optA'>
+                        <li>
+                            <p name='option-a' id='option-a'><%= options[0] %></p>
+                        </li>
+                    </div>
+
+                    <div class='option-item' id='optB'>
+                        <li>
+                            <p name='option-b' id='option-b'><%= options[1] %></p>
+                        </li>
+                    </div>
+                
+                    <div class='option-item' id='optC'>
+                            <li>
+                            <p name='option-c' id='option-c'><%= options[2] %></p>
+                        </li>
+                    </div>
+
+                    <div class='option-item' id='optD'>
+                        <li>
+                            <p name='option-d' id='option-d'><%= options[3] %></p>
+                        </li>
+                    </div>
+
+                </ol>
+            </div>
+        </div>
+
+    <!-- <script src="/js/index.js"></script> -->
+  </body>
+</html>

@@ -1,9 +1,11 @@
+<!-- result page for quiz -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel='stylesheet' type='text/css' href='css/quizScore.css'/>
     <link
       href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
@@ -21,28 +23,38 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="fas fa-bars bars-cancel">
-        <span class="icon"></span>
-      </div>
-      <ul>
-        <li><a href="/quizStart">QUIZ</a></li>
-        <li><a href="/slideList">SLIDE</a></li>
-        <li><a href="/aboutUs">CONTACT</a></li>
-        <li><a href="/aboutUs">ABOUT</a></li>
-        <li><a href="/login">SIGN UP/IN</a></li>
-      </ul>
-
-      <div class="welcome" aria-hidden="true">
-        <h1>Welcome To</h1>
-        <h3>Corona Class</h3>
+      <div class='btn-box top-box'>
+          <div class='btn' id='home'>
+              <a href='/index'><button>Home</button></a>
+          </div>
       </div>
 
-      <div class="statbtn">
-        <a href="/graph"><button>stats</button></a>
+      <div id='scoreInfo'>
+        <div class ='info' id='title'>
+            <h1>RESULTS</h1>
+        </div>
+        <div class='info score-detail'>
+            <h2>You correctly answered <span id='score'>#</span> questions out of 5!</h2>
+        </div>
       </div>
+
+      <div id='questionSummary'>
+        <!-- insert user answer/correct answer for each question -->
+      </div>
+
+      <div class='btn-box bottom-box'>
+        <h2 id='tryAgain'>Try Again?</h2>
+        <div class='btn' id='retrybtn'>
+          <a href='/quizStart'>
+            <button>Retry</button>
+          </a>
+        </div>
+
+      </div>
+
     </div>
 
     <script src="/js/index.js"></script>
-    <script src="/js/virus.js"></script>
+    <script src=""></script>
   </body>
 </html>
