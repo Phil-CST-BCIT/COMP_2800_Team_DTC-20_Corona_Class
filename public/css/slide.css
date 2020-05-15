@@ -3,8 +3,8 @@ h1, h2, h3, h4, h5, h6, p, input[type='button'], button {
 }
 
 #quitBtn {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 30px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-around;
 }
@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6, p, input[type='button'], button {
 }
 
 #imgbox > img {
-    width: 300px;
+    width: 250px;
 }
 
 /* copied from index.css (see: .statbtn and .statbtn > button) */

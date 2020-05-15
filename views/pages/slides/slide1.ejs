@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
-
+    <script type='text/javascript' src='/js/slide.js'></script>
     <title>CoronaClass</title>
   </head>
   <body>
@@ -33,29 +33,29 @@
           <h1>LESSON #1</h1>
         </div>
         <div class='slide-content'>
-          <h2 id='slideName'>SAFETY</h2>
+          <h2 id='slideName'><span id='page_number'><%= page_number %></span>. <span id='title'><%= title %></span></h2>
         </div>
         <div class='slide-content'>
           <h3 id='content'>
-            This is the content of this slide page.
+            <%= content %>
           </h3>
         </div>
       </div>
 
       <div id='imgbox'>
-          <img id='slideImg' src='/css/images/safety_slide/safety1.png'/>
+          <img id='slideImg' src=<%= img_url %> />
       </div>
 
       <div id='slideNav'>
 
         <div class='nav-btn' id='backbtn'>
-          <a href='/slides/slide1'>
+          <a>
             <button>Back</button>
           </a>
         </div>
 
         <div class='nav-btn' id='nextbtn'>
-          <a href='/slides/slide1'>
+          <a>
             <button>Next</button>
           </a>
         </div>
