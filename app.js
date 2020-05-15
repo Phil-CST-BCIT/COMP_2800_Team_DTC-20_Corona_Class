@@ -49,14 +49,14 @@ let firstQuestion = {
 };
 app.get("/quiz", (req, res) => {
   quizIndex = 0;
-  res.render("pages/quiz", firstQuestion);
+  res.render("pages/quiz", questions[0]);
 });
 
 // from 2537 week 3 package
 app.get('/nextQuestion', (req,res) => {
 
   ++quizIndex; 
-  console.log(quizIndex);
+  // console.log(quizIndex);
   // currently selecting the final answer does nothing, may make it submit the quiz
   if (quizIndex >= questions.length) {
       res.render("pages/quizScore");
