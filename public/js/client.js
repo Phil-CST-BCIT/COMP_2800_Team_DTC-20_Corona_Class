@@ -4,7 +4,7 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     let countryName = data.countrydata[0].info.title;
-    let totalConfirmedCases = data.countrydata[0].total_cases;
+    let totalConfirmedCases = data.countrydata[0].total_new_cases_today;
     let activeCases = data.countrydata[0].total_active_cases;
 
     $(".totalCases>h3").append(countryName);
@@ -24,8 +24,18 @@ $.ajax({
     var dates = [];
     var cases = [];
     for (let i = month; i < month + 1; i++) {
-      for (let j = 0; j < 7; j++) {
-        if (j < 10) {
+      for (let j = 0; j < 14; j++) {
+        if (j === 9) {
+          let tempMonth = month + 1;
+          let tempDay = j + 1;
+          let newCase =
+            data.timelineitems[0][`${tempMonth}/${tempDay}/20`][
+              "new_daily_cases"
+            ];
+          dates.push(`${tempMonth}/0${tempDay}/2020`);
+          cases.push(newCase);
+          console.log(newCase);
+        } else if (j < 10) {
           let tempMonth = month + 1;
           let tempDay = j + 1;
           let newCase =
@@ -39,7 +49,7 @@ $.ajax({
           let tempMonth = month + 1;
           let tempDay = j + 1;
           let newCase =
-            data.timelineitems[0][`${tempMonth}/0${tempDay}/20`][
+            data.timelineitems[0][`${tempMonth}/${tempDay}/20`][
               "new_daily_cases"
             ];
           dates.push(`${tempMonth}/${tempDay}/2020`);
@@ -154,6 +164,55 @@ function drawTable(myData) {
       activeCases: myData.timelineitems[0][`5/07/20`]["new_daily_cases"],
       totalDeath: myData.timelineitems[0][`5/07/20`]["total_deaths"],
       totalRecoveries: myData.timelineitems[0][`5/07/20`]["total_recoveries"],
+    },
+    {
+      date: "5/08/20",
+      totalCases: myData.timelineitems[0][`5/08/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/08/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/08/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/08/20`]["total_recoveries"],
+    },
+    {
+      date: "5/09/20",
+      totalCases: myData.timelineitems[0][`5/09/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/09/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/09/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/09/20`]["total_recoveries"],
+    },
+    {
+      date: "5/10/20",
+      totalCases: myData.timelineitems[0][`5/10/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/10/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/10/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/10/20`]["total_recoveries"],
+    },
+    {
+      date: "5/11/20",
+      totalCases: myData.timelineitems[0][`5/11/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/11/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/11/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/11/20`]["total_recoveries"],
+    },
+    {
+      date: "5/12/20",
+      totalCases: myData.timelineitems[0][`5/12/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/12/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/12/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/12/20`]["total_recoveries"],
+    },
+    {
+      date: "5/13/20",
+      totalCases: myData.timelineitems[0][`5/13/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/13/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/13/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/13/20`]["total_recoveries"],
+    },
+    {
+      date: "5/14/20",
+      totalCases: myData.timelineitems[0][`5/14/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/14/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/14/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/14/20`]["total_recoveries"],
     },
   ];
 
