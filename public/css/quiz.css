@@ -49,6 +49,7 @@
     margin-left: 10px;
     margin-right: 10px;
     background-color: #D22C2C;
+    color: white;
     background-image: linear-gradient(#D22C2C, #6E1B09);
     border: 2px solid #6E1B09;
     border-radius: 20px;
@@ -98,5 +99,5 @@ a {
 
 .completed {
     /* quiz has been completed and submitted before */
-    color: black;
+    color: white;
 }
