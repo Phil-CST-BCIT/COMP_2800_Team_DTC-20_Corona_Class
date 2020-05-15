@@ -1,0 +1,215 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1em;
+  font-family: "Oxygen", sans-serif;
+  vertical-align: baseline;
+}
+
+#root {
+  background: url(./images/bookCoverBg.jpg) no-repeat center center local;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 10vh auto;
+  max-width: 375px;
+  min-width: 375px;
+  min-height: 736px;
+  max-height: 736px;
+  overflow: hidden;
+  border: 5px black solid;
+  border-radius: 5px;
+  box-shadow: 5 9px 5px 0 #000;
+}
+
+@media only screen and (max-width: 415px) {
+  #root {
+    display: grid;
+    grid-template-areas:
+      "buttonDiv"
+      "auth-details"
+      "inputDiv"
+      "submit";
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  #buttonDiv {
+    grid-area: buttonDiv;
+  }
+
+  #signUp {
+    margin-left: 5px;
+    padding: 10px 30px 10px 30px;
+    font-size: medium;
+    color: white;
+    background-color: #4285f4;
+    border: 1px solid black;
+    border-radius: 5%;
+  }
+
+  #logIn {
+    margin-left: 5px;
+    padding: 10px 30px 10px 30px;
+    font-size: medium;
+    color: white;
+    background-color: #393a3c;
+    border: 1px solid black;
+    border-radius: 5%;
+  }
+
+  #auth-details {
+    grid-area: auth-details;
+  }
+
+  #inputDiv {
+    grid-area: inputDiv;
+  }
+
+  .sub-btn {
+    grid-area: submit;
+  }
+
+  #buttonDiv {
+    margin-top: 75px;
+  }
+
+  #buttonDiv > button {
+    border: 1px solid #393a3c;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: black;
+  }
+
+  #auth-details {
+    padding-top: 20px;
+    font-size: 2em;
+    font-weight: bolder;
+    color: white;
+    text-shadow: 5px 5px black;
+  }
+
+  #auth-details > div {
+    padding-top: 50px;
+    text-align: center;
+    font-size: small;
+  }
+
+  #inputDiv {
+    width: 100%;
+  }
+
+  #inputDiv > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #inputDiv > form > input {
+    margin: 2px 5px 3px;
+    width: 80%;
+    height: 30px;
+    size: 10px;
+  }
+
+  .sub-btn {
+    margin-top: 70px;
+    padding: 10px 30px 10px 30px;
+    background-color: #4267b2;
+    border: 1px solid white;
+    border-radius: 5%;
+    font-size: medium;
+    color: white;
+  }
+
+  #error {
+    text-align: center;
+  }
+}

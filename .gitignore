@@ -37,3 +37,11 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# VSCode settings #
+######################
+**/.vscode
+
+#node modules#
+#################
+node_modules/
