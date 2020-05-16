@@ -1,9 +1,9 @@
 const express = require("express");
-const path = require("path");
-const app = express();
-const port = process.env.PORT || 8080;
-// get the client
 const mysql = require("mysql2");
+const bcrypt = require("bcrypt");
+const app = express();
+const saltRounds = 8;
+const port = process.env.PORT || 8080;
 
 /**Connection pools help reduce the time spent connecting
  * to the MySQL server by reusing a previous connection,
@@ -105,17 +105,22 @@ app.post("/usrInfo", (req, res, next) => {
         )
         .then(([data, metadata]) => {
           console.log(data);
-          if (
-            // authentication
-            regUserName === data[0].user_name &&
-            regUserPassword === data[0].password
+          bcrypt.compare(regUserPassword, data[0].password, function (
+            err,
+            result
           ) {
-            res.render("pages/home", { namePlaceHolder: regUserName });
-          } else {
-            res.render("pages/error", {
-              err: "username or password incorrect",
-            });
-          }
+            if (
+              // authentication
+              regUserName === data[0].user_name &&
+              result
+            ) {
+              res.render("pages/home", { namePlaceHolder: regUserName });
+            } else {
+              res.render("pages/error", {
+                err: "username or password incorrect",
+              });
+            }
+          });
         })
         .catch(() => {
           res.render("pages/error", {
@@ -142,10 +147,14 @@ app.post("/usrInfo", (req, res) => {
     username: user.username,
     password: user.password,
   });
+
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashed = bcrypt.hashSync(user.password, salt);
+  console.log(hashed);
   promisePool
     .execute(
       `INSERT INTO users(email, user_name, password )
-        VALUES ('${user.email}', '${user.username}', '${user.password}')`
+        VALUES ('${user.email}', '${user.username}', '${hashed}')`
     )
     .then(() => res.redirect("/success"))
     .catch((error) => console.log(error));

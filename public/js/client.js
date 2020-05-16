@@ -4,7 +4,7 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     let countryName = data.countrydata[0].info.title;
-    let totalConfirmedCases = data.countrydata[0].total_new_cases_today;
+    let totalConfirmedCases = data.countrydata[0].total_cases;
     let activeCases = data.countrydata[0].total_active_cases;
 
     $(".totalCases>h3").append(countryName);
@@ -24,7 +24,7 @@ $.ajax({
     var dates = [];
     var cases = [];
     for (let i = month; i < month + 1; i++) {
-      for (let j = 0; j < 14; j++) {
+      for (let j = 0; j < 15; j++) {
         if (j === 9) {
           let tempMonth = month + 1;
           let tempDay = j + 1;
@@ -213,6 +213,13 @@ function drawTable(myData) {
       activeCases: myData.timelineitems[0][`5/14/20`]["new_daily_cases"],
       totalDeath: myData.timelineitems[0][`5/14/20`]["total_deaths"],
       totalRecoveries: myData.timelineitems[0][`5/14/20`]["total_recoveries"],
+    },
+    {
+      date: "5/15/20",
+      totalCases: myData.timelineitems[0][`5/15/20`]["total_cases"],
+      activeCases: myData.timelineitems[0][`5/15/20`]["new_daily_cases"],
+      totalDeath: myData.timelineitems[0][`5/15/20`]["total_deaths"],
+      totalRecoveries: myData.timelineitems[0][`5/15/20`]["total_recoveries"],
     },
   ];
 
