@@ -63,9 +63,9 @@ app.get("/success", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  console.log(req.body);
-  let someone = "";
-  res.render("pages/home", { namePlaceHolder: someone });
+  //console.log(req.body);
+  let userName = "";
+  res.render("pages/home", { namePlaceHolder: userName });
 });
 
 app.get("/error", (req, res) => {
@@ -87,11 +87,11 @@ app.post("/usrInfo", (req, res, next) => {
 
   if (count === 3) {
     //console.log(count);
-    const user = {
-      email: req.body.email.trim(),
-      username: req.body.username.trim(),
-      password: req.body.password.trim(),
-    };
+    // const user = {
+    //   email: req.body.email.trim(),
+    //   username: req.body.username.trim(),
+    //   password: req.body.password.trim(),
+    // };
 
     if (
       user.email !== "" &&
@@ -109,7 +109,7 @@ app.post("/usrInfo", (req, res, next) => {
           `SELECT users.email FROM users WHERE users.email = '${user.email}' ORDER BY id DESC LIMIT 1`
         )
         .then(function ([myData, metadata]) {
-          console.log(myData[0]);
+          // console.log(myData[0]);
           if (myData[0].email !== undefined) {
             console.log("exist");
             res.render("pages/login", {
@@ -127,7 +127,7 @@ app.post("/usrInfo", (req, res, next) => {
       res.redirect("/login");
     }
   } else if (count === 2) {
-    console.log(count);
+    //console.log(count);
 
     const regUserName = req.body.username;
     const regUserPassword = req.body.password;
@@ -139,8 +139,8 @@ app.post("/usrInfo", (req, res, next) => {
       regUserPassword !== "" &&
       regUserPassword !== undefined
     ) {
-      console.log(regUserName);
-      console.log(regUserPassword);
+      // console.log(regUserName);
+      // console.log(regUserPassword);
 
       promisePool
         .execute(
@@ -185,11 +185,11 @@ app.post("/usrInfo", (req, res) => {
     username: req.body.username.trim(),
     password: req.body.password.trim(),
   };
-  console.log({
-    email: user.email,
-    username: user.username,
-    password: user.password,
-  });
+  // console.log({
+  //   email: user.email,
+  //   username: user.username,
+  //   password: user.password,
+  // });
 
   //sync functions generating salt and hash value.
   const salt = bcrypt.genSaltSync(saltRounds);
@@ -211,7 +211,7 @@ app.get("/user", (req, res) => {
 });
 
 app.post("/update", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   const email = req.body.email;
   const oldName = req.body.oldName;
   const newName = req.body.newName;
@@ -235,7 +235,7 @@ app.post("/delete", (req, res) => {
   promisePool
     .execute(`DELETE FROM users WHERE '${email}' = users.email;`)
     .then(([data, meta]) => {
-      console.log(data);
+      //console.log(data);
       res.render("pages/login", { msg: "Your Account has been deleted" });
     })
     .catch(() => {
