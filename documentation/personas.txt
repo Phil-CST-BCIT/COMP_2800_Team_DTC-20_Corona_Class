@@ -1,0 +1,46 @@
+Imaginary client personas for CoronaClass.
+Examples of potential users that would benefit/request an app like CoronaClass.
+
+
+Client #1 = Bob
+Description:
+- representative of a private company wanting to stay informed with regards to COVID-19
+- company wants an app with optimized layout for ease of learning
+
+Bob's company will benefit by:
+- observing the progression of the virus and its effect on the global/local population
+- being able to rapidly make decisions in response to the data
+- designing HR and PR statements around the info provided by the app
+
+the employees of Bob's company will benefit by:
+- being quickly and fully informed with regards to dealing with the virus
+- knowing right away whether they must cease/are able to return to work given the data
+
+
+Client #2 - Deltrese
+Description:
+- wife and mother in quarantine with young children
+- family is unaware of (or struggling to retain) the facts regarding COVID-19, such as proper safety procedures, case count, etc.
+- wants an app for her family that can provide immediate and easy-to-digest information
+- children are not receptive to the format of data representation provided by official sources
+
+she will benefit by:
+- educating her family on COVID-19 without strenuous effort
+- tracking the stats of the virus to make the virus feel less intangible, alleviating stress
+
+- her family will benefit by:
+-- taking the in-app lessons to learn about COVID-19 using visual aid
+-- taking the in-app quizzes to help retain their knowledge of COVID-19
+-- learning what they should/shouldn't do in response to the virus
+
+
+Client #3 - Naruto
+Description:
+- government official wanting an COVID-19 app that can effectively educate the public
+- concerned that people are ignoring/avoiding information regarding the virus due to the presentation
+- wants an app that is visually stimulating, since many offical sources are text only
+
+Naruto will benefit by:
+- keeping the public informed with clear, concise and eye-catching data visualization
+-- backing up government decisions with graphs of live data
+- defusing common misconceptions regarding the virus

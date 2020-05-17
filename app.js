@@ -1,11 +1,27 @@
 const express = require("express");
-const path = require("path");
-const app = express();
-const port = process.env.PORT || 8080;
-// get the client
 const mysql = require("mysql2");
+const bcrypt = require("bcrypt");
+const app = express();
+const saltRounds = 8;
+const port = process.env.PORT || 8080;
 
-/**Connection pools help reduce the time spent connecting
+/**
+ * a middleware to handle a request body from a client.
+ * @param express.urlencoded function
+ * @param Object sets true allows:
+ * 1> nested json objects,
+ * 2> not filter out ?.
+ */
+app.use(express.urlencoded({ extended: true }));
+
+/**
+ * uses middleware to res static contents and send them back.
+ */
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+
+/**
+ * Connection pools help reduce the time spent connecting
  * to the MySQL server by reusing a previous connection,
  * leaving them open instead of closing when you are done with them.
  */
@@ -18,10 +34,9 @@ const promisePool = mysql
   })
   .promise();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.set("view engine", "ejs");
-
+/**********************************************************
+ *********************** GET REQUESTS *********************
+ **********************************************************/
 app.get("/", (req, res) => {
   res.render("pages/index");
 });
@@ -43,11 +58,35 @@ app.get("/login", (req, res) => {
   res.render("pages/login", { msg: notice });
 });
 
+app.get("/success", (req, res) => {
+  res.render("pages/success");
+});
+
+app.get("/home", (req, res) => {
+  console.log(req.body);
+  let someone = "";
+  res.render("pages/home", { namePlaceHolder: someone });
+});
+
+app.get("/error", (req, res) => {
+  let myError = "";
+  res.render("pages/error", { err: myError });
+});
+
+app.get("/update", (req, res) => {
+  res.render("pages/user");
+});
+
+/**********************************************************
+ *********************** POST REQUESTS ********************
+ **********************************************************/
+
 app.post("/usrInfo", (req, res, next) => {
+  //the number of inputs from either Sign-up or Log-in
   const count = Object.keys(req.body).length;
 
   if (count === 3) {
-    console.log(count);
+    //console.log(count);
     const user = {
       email: req.body.email.trim(),
       username: req.body.username.trim(),
@@ -66,12 +105,16 @@ app.post("/usrInfo", (req, res, next) => {
       user.password !== undefined
     ) {
       promisePool
-        .execute(`SELECT * FROM users WHERE users.email = '${user.email}'`)
+        .execute(
+          `SELECT users.email FROM users WHERE users.email = '${user.email}' ORDER BY id DESC LIMIT 1`
+        )
         .then(function ([myData, metadata]) {
-          if (myData.length && myData[0].email === user.email) {
+          console.log(myData[0]);
+          if (myData[0].email !== undefined) {
             console.log("exist");
-            let notice = `${user.email} registerd by someone else`;
-            res.render("pages/login", { msg: notice });
+            res.render("pages/login", {
+              msg: `exists email '${myData[0].email}'`,
+            });
           } else {
             next();
             return;
@@ -105,17 +148,22 @@ app.post("/usrInfo", (req, res, next) => {
         )
         .then(([data, metadata]) => {
           console.log(data);
-          if (
-            // authentication
-            regUserName === data[0].user_name &&
-            regUserPassword === data[0].password
+          bcrypt.compare(regUserPassword, data[0].password, function (
+            err,
+            result
           ) {
-            res.render("pages/home", { namePlaceHolder: regUserName });
-          } else {
-            res.render("pages/error", {
-              err: "username or password incorrect",
-            });
-          }
+            if (
+              // authentication
+              regUserName === data[0].user_name &&
+              result
+            ) {
+              res.render("pages/home", { namePlaceHolder: regUserName });
+            } else {
+              res.render("pages/error", {
+                err: "username or password incorrect",
+              });
+            }
+          });
         })
         .catch(() => {
           res.render("pages/error", {
@@ -142,23 +190,20 @@ app.post("/usrInfo", (req, res) => {
     username: user.username,
     password: user.password,
   });
+
+  //sync functions generating salt and hash value.
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashed = bcrypt.hashSync(user.password, salt);
+
+  console.log(hashed);
+
   promisePool
     .execute(
       `INSERT INTO users(email, user_name, password )
-        VALUES ('${user.email}', '${user.username}', '${user.password}')`
+        VALUES ('${user.email}', '${user.username}', '${hashed}')`
     )
     .then(() => res.redirect("/success"))
     .catch((error) => console.log(error));
-});
-
-app.get("/success", (req, res) => {
-  res.render("pages/success");
-});
-
-app.get("/home", (req, res) => {
-  console.log(req.body);
-  let someone = "";
-  res.render("pages/home", { namePlaceHolder: someone });
 });
 
 app.get("/user", (req, res) => {
@@ -184,10 +229,6 @@ app.post("/update", (req, res) => {
   res.render("pages/user");
 });
 
-app.get("/update", (req, res) => {
-  res.render("pages/user");
-});
-
 app.post("/delete", (req, res) => {
   const email = req.body.email;
 
@@ -202,9 +243,4 @@ app.post("/delete", (req, res) => {
     });
 });
 
-app.get("/error", (req, res) => {
-  let myError = "";
-  res.render("pages/error", { err: myError });
-});
-
-app.listen(port, console.log(`server is running at ${port}`));
+app.listen(port, console.log(`server is listening on port: ${port}`));
