@@ -15,6 +15,12 @@ $(document).ready(function () {
 });
 
 function setImage() {
+  if (id > 10) {
+    $(".virus").remove();
+    clearInterval(interval);
+    return;
+  }
+
   let img = $(
     `<img src='/css/images/virus.png' id='${++id}' class='virus' style='left:${randomLeft()}; top:${randomTop()}; position:absolute; width:75px;' />`
   );
