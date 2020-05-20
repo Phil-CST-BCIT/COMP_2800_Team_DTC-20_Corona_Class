@@ -256,13 +256,6 @@ app.post("/usrInfo", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-<<<<<<< HEAD
-app.get("/user", (req, res) => {
-  res.render("pages/user");
-});
-
-=======
->>>>>>> phil_feature1
 app.post("/update", (req, res) => {
   //console.log(req.body);
   const email = req.body.email;
