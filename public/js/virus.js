@@ -15,7 +15,7 @@ $(document).ready(function () {
 });
 
 function setImage() {
-  if (id > 10) {
+  if (id > 20) {
     $(".virus").remove();
     clearInterval(interval);
     return;
