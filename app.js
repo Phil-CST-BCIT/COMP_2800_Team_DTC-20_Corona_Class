@@ -28,9 +28,9 @@ app.set("view engine", "ejs");
 const promisePool = mysql
   .createPool({
     host: "sql3.freemysqlhosting.net",
-    user: "sql3340033",
-    database: "sql3340033",
-    password: "FFfkSNyC7E",
+    user: "sql3340475",
+    database: "sql3340475",
+    password: "nJAW8RPvi3",
   })
   .promise();
 
@@ -58,6 +58,16 @@ app.get("/login", (req, res) => {
   res.render("pages/login", { msg: notice });
 });
 
+app.get("/user/login", (req, res) => {
+  let notice = "";
+  res.render("pages/user/login", { msg: notice });
+});
+
+app.get("/user/signup", (req, res) => {
+  let notice = "";
+  res.render("pages/user/create", { msg: notice });
+});
+
 app.get("/success", (req, res) => {
   res.render("pages/success");
 });
@@ -75,6 +85,46 @@ app.get("/error", (req, res) => {
 
 app.get("/update", (req, res) => {
   res.render("pages/user");
+});
+
+app.get("/user", (req, res) => {
+  res.render("pages/user");
+});
+
+app.get("/questions", (req, res) => {
+  res.render("pages/questions", { questions: "qeustions" });
+});
+
+app.get("/questions/start", (req, res) => {
+  let id = [];
+  let num = Math.floor(Math.random() * 10) + 1;
+  let selClause = `SELECT * FROM questions WHERE id = ? LIMIT 1;`;
+  let myQuestions = [];
+  const numberOfQuesions = 5;
+  const randomFactor = 10;
+  if (!id) {
+    id.push(num);
+  } else {
+    do {
+      num = Math.floor(Math.random() * randomFactor) + 1;
+      if (!id.includes(num)) {
+        id.push(num);
+      }
+    } while (id.length < numberOfQuesions);
+  }
+
+  async function getQ() {
+    for (let j = 0; j < numberOfQuesions; j++) {
+      let aQuestion = await promisePool.execute(selClause, [id[j]]);
+      myQuestions.push(aQuestion);
+    }
+
+    if (myQuestions.length === numberOfQuesions) {
+      res.send({ question: myQuestions });
+    }
+  }
+
+  getQ();
 });
 
 /**********************************************************
@@ -111,7 +161,7 @@ app.post("/usrInfo", (req, res, next) => {
         .then(function ([myData, metadata]) {
           console.log(myData[0]);
           if (myData[0].email !== undefined) {
-            console.log("exist");
+            // console.log("exist");
             res.render("pages/login", {
               msg: `exists email '${myData[0].email}'`,
             });
@@ -206,10 +256,6 @@ app.post("/usrInfo", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.get("/user", (req, res) => {
-  res.render("pages/user");
-});
-
 app.post("/update", (req, res) => {
   console.log(req.body);
   const email = req.body.email;
@@ -243,4 +289,26 @@ app.post("/delete", (req, res) => {
     });
 });
 
+/****************************
+ * RE-WRITE LOGIN/CREATE USER
+ *
+ * STRUCTURE-- VIEWS
+ *              |_PAGES
+ *                  |__USER
+ *                        |__LOGIN
+ *                        |__CREATE
+ *                  |__OTHERS....
+ **************************/
+
+app.post("/user/login", function (req, res, next) {
+  res.redirect("/user/login");
+});
+
+app.post("/user/signup", function (req, res, next) {
+  res.redirect("pages/user/signup");
+});
+
+/******************************************
+ * *************** START ******************
+ ******************************************/
 app.listen(port, console.log(`server is listening on port: ${port}`));
