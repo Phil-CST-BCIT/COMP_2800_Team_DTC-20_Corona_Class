@@ -1,43 +1,15 @@
 // quiz testing + score and nav logic
-// the following currently do not work
-// const datasets = require('./datasets');
-// const questions = datasets.fiveQuestions;
-const questions = [
-    {
-        id: 1,
-        question: 'Which is not a transmission method of the Coronavirus?',
-        answer: 'Cellular network signals',
-        options: ['Direct contact with infected persons', 'Contact with contaminated surfaces', 'Cellular network signals', 'Contact with infected respiratory droplets, as exhaled by an infected person']
-    },
-    {
-        id: 2,
-        question: 'When are non-medical masks most effective at slowing the spread of COVID-19?',
-        answer: 'When used by infected persons around uninfected',
-        options: ['When used by uninfected persons in public places', 'When used by uninfected persons around infected', 'Masks are ineffective at slowing the spread', 'When used by infected persons around uninfected']
-    },
-    {
-        id: 3,
-        question: 'Which is NOT a symptom of the Coronavirus?',
-        answer: 'Numbness in limbs',
-        options: ['Fever', 'Fatigue', 'Headaches', 'Numbness in limbs']
-    },
-    {
-        id: 4,
-        question: 'What is the incubation period for the Coronavirus?',
-        answer: '',
-        options: ['Within 6 hours of infection', 'Within 3-4 weeks of infection', 'The onset of symptoms is entirely random', 'Within two weeks of infection']
-    },
-    {
-        id: 5,
-        question: 'Where was the first cases of the Coronavirus discovered?',
-        answer: 'Wuhan, China', 
-        options: ['Lombardy, Italy', 'Taipei, Taiwain', 'New York, USA', 'Wuhan, China']
-    }
-];
+
 let userAnswers = [];
 let questionsArray = makeQuestionArray(questions);
 let answerArray = makeAnswerArray(questions);
 let quizIndex = 0;
+const timer = 2000;
+let allowClick = true;
+let userPoints = 0;
+let userCorrectCount = 0;
+const qPointValue = 10;
+
 
 function makeQuestionArray(questions) {
     let questionArray = [];
@@ -56,34 +28,116 @@ function makeAnswerArray(questions) {
 }
 
 function userSelect(answer) {
-    if (userAnswers[-1] != answer) {
+    if (userAnswers[quizIndex] != answer) {
         userAnswers.push(answer);
     }
     console.log(userAnswers);
 }
+
+function checkAnswer(input, answer) {
+    if (input === answer) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function answerPopup (img_url) {
+    let popupDiv = document.getElementById('questionInfo');
+    let img = document.createElement('img');
+    img.src = img_url;
+    img.style.width = '180px';
+    img.style.position = 'relative';
+    img.style.bottom = '180px';
+    popupDiv.appendChild(img);
+}
+
+function highlightAnswer(options, answer, color) {
+    let optionIdAffix = ['A', 'B', 'C', 'D'];
+    for (let i = 0; i < options.length; i++) {
+        let targetId = document.getElementById('opt' + optionIdAffix[i]);
+        if (options[i] === answer) {
+            targetId.style.borderColor = color;
+            setTimeout(function () {
+                targetId.style.borderColor = '#6E1B09';
+            }, timer);
+            break;
+        }
+    }
+}
+
+function compareAnswer(options, input, answer) {
+    let isCorrect = checkAnswer(input, answer);
+    highlightAnswer(options, answer, 'rgb(53, 250, 18)');
+    if (!isCorrect) {
+        // incorrect answer
+        highlightAnswer(options, input, 'grey');
+        answerPopup('/css/images/wrong.png');
+    }
+    else {
+        // correct answer, increments user points
+        userPoints += qPointValue;
+        userCorrectCount++;
+        answerPopup('/css/images/correct.png');
+    }
+}
+
+function disableButtons() {
+    allowClick = false;
+    setTimeout(function () {
+        allowClick = true;
+    }, timer);
+}
+
+function reenableButton(btnId) {
+    let btn = document.getElementById(btnId);
+    btn.onclick = buttonEvent;
+}
+
+function buttonEvent(options, userAns, correctAns) {
+    // button actions plus disables buttons and reenables after 2 seconds
+    // let btnIdAffixs = ['A', 'B', 'C', 'D'];
+    // console.log(allowClick);
+    if (allowClick) {
+        ++quizIndex;
+        userSelect(userAns);
+        compareAnswer(options, userAns, correctAns);
+        disableButtons();
+    }
+}
+
 
 // from 2537 week 3 starter code package
 $(document).ready(function(){
 
     $('.option-item').on('click', function() {
 
-        console.log('Selected answer: ' + this.innerText);
-        ++quizIndex;
+        let userAns = this.innerText;
+        let currentQuestion = questions[quizIndex];
+        let options = currentQuestion.options;
+        let correctAns = currentQuestion.answer;
+        // compareAnswer(options, userAns, correctAns);
 
-        if (quizIndex <= questions.length) {
-            userSelect(this.innerText);
+        // console.log('Selected answer: ' + userAns);
+        if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
+            // immediate results of selecting an answer
+            buttonEvent(options, userAns, correctAns);
         }
 
         if (quizIndex < questions.length) {
-            let currentQuestion = questions[quizIndex];
-            let options = currentQuestion.options;
+            setTimeout(function () {
+                let nextQuestion = questions[quizIndex];
+                options = nextQuestion.options;
 
-            $('#question-number').text(currentQuestion.id);
-            $('#question').text(currentQuestion.question);
-            $('#option-a').text(options[0]);
-            $('#option-b').text(options[1]);
-            $('#option-c').text(options[2]);
-            $('#option-d').text(options[3])              
+                $('img').remove();
+                $('#question-number').text(quizIndex + 1);
+                $('#question').text(nextQuestion.question);
+                $('#option-a').text(options[0]);
+                $('#option-b').text(options[1]);
+                $('#option-c').text(options[2]);
+                $('#option-d').text(options[3]);
+            }, timer);
         }
     })
 })

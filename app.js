@@ -92,7 +92,7 @@ app.get("/user", (req, res) => {
 });
 
 app.get("/questions", (req, res) => {
-  res.render("pages/questions", { questions: "qeustions" });
+  res.render("pages/questions", { questions: "questions" });
 });
 
 app.get("/questions/start", (req, res) => {
@@ -100,7 +100,7 @@ app.get("/questions/start", (req, res) => {
   let num = Math.floor(Math.random() * 10) + 1;
   let selClause = `SELECT * FROM questions WHERE id = ? LIMIT 1;`;
   let myQuestions = [];
-  const numberOfQuesions = 5;
+  const numberOfQuestions = 5;
   const randomFactor = 10;
   if (!id) {
     id.push(num);
@@ -110,17 +110,17 @@ app.get("/questions/start", (req, res) => {
       if (!id.includes(num)) {
         id.push(num);
       }
-    } while (id.length < numberOfQuesions);
+    } while (id.length < numberOfQuestions);
   }
 
   async function getQ() {
-    for (let j = 0; j < numberOfQuesions; j++) {
+    for (let j = 0; j < numberOfQuestions; j++) {
       let aQuestion = await promisePool.execute(selClause, [id[j]]);
       myQuestions.push(aQuestion);
     }
 
-    if (myQuestions.length === numberOfQuesions) {
-      res.send({ question: myQuestions });
+    if (myQuestions.length === numberOfQuestions) {
+      res.render('/pages/quiz', { questions: myQuestions });
     }
   }
 
