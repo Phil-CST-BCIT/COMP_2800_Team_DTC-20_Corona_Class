@@ -95,6 +95,10 @@ app.get("/questions", (req, res) => {
   res.render("pages/questions", { questions: "questions" });
 });
 
+app.get("/quizStart", (req, res) => {
+  res.render("pages/quizStart");
+});
+
 app.get("/questions/start", (req, res) => {
   let id = [];
   let num = Math.floor(Math.random() * 10) + 1;
@@ -120,7 +124,7 @@ app.get("/questions/start", (req, res) => {
     }
 
     if (myQuestions.length === numberOfQuestions) {
-      res.render('/pages/quiz', { questions: myQuestions });
+      res.render('pages/quiz', { questions: myQuestions });
     }
   }
 

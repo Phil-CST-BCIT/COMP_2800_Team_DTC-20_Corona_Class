@@ -1,8 +1,8 @@
 // quiz testing + score and nav logic
 
 let userAnswers = [];
-let questionsArray = makeQuestionArray(questions);
-let answerArray = makeAnswerArray(questions);
+// let questionsArray = makeQuestionArray(questions);
+// let answerArray = makeAnswerArray(questions);
 let quizIndex = 0;
 const timer = 2000;
 let allowClick = true;
@@ -109,36 +109,83 @@ function buttonEvent(options, userAns, correctAns) {
 
 
 // from 2537 week 3 starter code package
+// Q for question
 $(document).ready(function(){
 
-    $('.option-item').on('click', function() {
+    e.preventDefault();
 
-        let userAns = this.innerText;
-        let currentQuestion = questions[quizIndex];
-        let options = currentQuestion.options;
-        let correctAns = currentQuestion.answer;
-        // compareAnswer(options, userAns, correctAns);
+    $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
+      .done((data) => {
 
-        // console.log('Selected answer: ' + userAns);
-        if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
-            // immediate results of selecting an answer
-            buttonEvent(options, userAns, correctAns);
-        }
+        let firstQ = data[quizIndex];
+        let options = [firstQ.answer_a, firstQ.answer_b, firstQ.answer_c, firstQ.answer_d];
 
-        if (quizIndex < questions.length) {
-            setTimeout(function () {
-                let nextQuestion = questions[quizIndex];
-                options = nextQuestion.options;
+        $('#question-number').text(quizIndex + 1);
+        $('#question').text(nextQ.question);
+        $('#option-a').text(options[0]);
+        $('#option-b').text(options[1]);
+        $('#option-c').text(options[2]);
+        $('#option-d').text(options[3]);
 
-                $('img').remove();
-                $('#question-number').text(quizIndex + 1);
-                $('#question').text(nextQuestion.question);
-                $('#option-a').text(options[0]);
-                $('#option-b').text(options[1]);
-                $('#option-c').text(options[2]);
-                $('#option-d').text(options[3]);
-            }, timer);
-        }
-    })
+        $('.option-item').on('click', function() {
+            let userAns = this.innerText;
+            let currentQ = data[quizIndex];
+            let options = [currentQ.answer_a, currentQ.answer_b, currentQ.answer_c, currentQ.answer_d];
+            let correctAns = currentQ.correct_answer;
+    
+            if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
+                // immediate results of selecting an answer
+                buttonEvent(options, userAns, correctAns);
+            }
+    
+            if (quizIndex < questions.length) {
+                setTimeout(function () {
+                    let nextQ = data[quizIndex];
+                    options = [nextQ.answer_a, nextQ.answer_b, nextQ.answer_c, nextQ.answer_d];
+    
+                    $('img').remove();
+                    $('#question-number').text(quizIndex + 1);
+                    $('#question').text(nextQ.question);
+                    $('#option-a').text(options[0]);
+                    $('#option-b').text(options[1]);
+                    $('#option-c').text(options[2]);
+                    $('#option-d').text(options[3]);
+                }, timer);
+            }
+        })
+      })
+      .fail((error) => {
+        console.log(error);
+      });
+
+    // $('.option-item').on('click', function() {
+
+    //     let userAns = this.innerText;
+    //     let currentQuestion = questions[quizIndex];
+    //     let options = currentQuestion.options;
+    //     let correctAns = currentQuestion.answer;
+    //     // compareAnswer(options, userAns, correctAns);
+
+    //     // console.log('Selected answer: ' + userAns);
+    //     if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
+    //         // immediate results of selecting an answer
+    //         buttonEvent(options, userAns, correctAns);
+    //     }
+
+    //     if (quizIndex < questions.length) {
+    //         setTimeout(function () {
+    //             let nextQuestion = questions[quizIndex];
+    //             options = nextQuestion.options;
+
+    //             $('img').remove();
+    //             $('#question-number').text(quizIndex + 1);
+    //             $('#question').text(nextQuestion.question);
+    //             $('#option-a').text(options[0]);
+    //             $('#option-b').text(options[1]);
+    //             $('#option-c').text(options[2]);
+    //             $('#option-d').text(options[3]);
+    //         }, timer);
+    //     }
+    // })
 })
 
