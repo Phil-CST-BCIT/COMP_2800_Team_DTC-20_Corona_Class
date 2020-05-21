@@ -10,7 +10,6 @@ let userPoints = 0;
 let userCorrectCount = 0;
 const qPointValue = 10;
 
-
 function makeQuestionArray(questions) {
     let questionArray = [];
     for (let i=0; i < questions.length; i++) {
