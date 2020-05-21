@@ -9,6 +9,8 @@
     <link rel='stylesheet' type='text/css' href='/css/quizStart.css'/>
     <!-- styling for question page -->
     <link rel='stylesheet' type='text/css' href='/css/quiz.css'/>
+    <!-- styling for score page -->
+    <link rel='stylesheet' type='text/css' href='/css/quizScore.css' />
     <link
       href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
       rel="stylesheet"
@@ -138,6 +140,39 @@
           </ol>
       </div>
   </div>
+
+  <!-- post-quiz score screen -->
+    <div class="wrapper" id='scorePage'>
+      <div class='btn-box top-box'>
+          <div class='btn' id='home'>
+              <a href='/index'><button>Home</button></a>
+          </div>
+      </div>
+
+      <div id='scoreInfo'>
+        <div class ='info' id='title'>
+            <h1 id='titleH1'>RESULTS</h1>
+        </div>
+        <div class='info score-detail'>
+            <h2>You correctly answered <span id='score'>#</span> questions out of 5!</h2>
+        </div>
+      </div>
+
+      <div id='questionSummary'>
+        <!-- insert user answer/correct answer for each question -->
+      </div>
+
+      <div class='btn-box bottom-box'>
+        <h2 id='tryAgain'>Try Again?</h2>
+        <div class='btn' id='retrybtn'>
+          <a href='/quizStart'>
+            <button>Retry</button>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
 
     <script src="/js/index.js"></script>
     <script src=""></script>

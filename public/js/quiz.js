@@ -28,8 +28,13 @@ let questions;
 //     return answerArray;
 // }
 
-function showQuiz() {
+function showScore() {
     let questionPage = document.getElementById('questionPage');
+    let scorePage = document.getElementById('scorePage');
+    let startPage = document.getElementById('startPage');
+    startPage.style.display = 'none';
+    questionPage.style.display = 'none';
+    scorePage.style.display = 'block';
 }
 
 // changes view to quiz questions page, selecting 'quit' refreshes the page (and starting again will create new questions)
@@ -127,7 +132,9 @@ $(document).ready(function () {
 
     $("#start").on("click", function (e) {
         e.preventDefault();
-        startQuiz();
+        // startQuiz();
+        showScore();
+        
     
         $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
           .done((data) => {
@@ -161,6 +168,7 @@ $(document).ready(function () {
                         let nextQ = data[quizIndex];
                         options = [nextQ.answer_a, nextQ.answer_b, nextQ.answer_c, nextQ.answer_d];
         
+                        // remove answer check image
                         $('img').remove();
                         $('#question-number').text(quizIndex + 1);
                         $('#question').text(nextQ.question);
@@ -169,6 +177,14 @@ $(document).ready(function () {
                         $('#option-c').text(options[2]);
                         $('#option-d').text(options[3]);
                     }, timer);
+
+                // condition for score page
+                if (quizIndex > questions.length) {
+                    setTimeout(function () {
+                        showScore();
+                        $('#score').text(userCorrectCount);
+                    }, timer);
+                }
                 }
             })
           })
