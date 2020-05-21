@@ -111,52 +111,63 @@ function buttonEvent(options, userAns, correctAns) {
 // Q for question
 $(document).ready(function () {
 
+    $("#start").on("click", function (e) {
+        e.preventDefault();
+    
+        $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
+          .done((data) => {
+            console.log(data);
+          })
+          .fail((error) => {
+            console.log(error);
+          });
+      });
     // e.preventDefault();
 
-    $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
-      .done((data) => {
+    // $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
+    //   .done((data) => {
 
-        console.log(data);
-        let firstQ = data[quizIndex];
-        let options = [firstQ.answer_a, firstQ.answer_b, firstQ.answer_c, firstQ.answer_d];
+    //     console.log(data);
+    //     let firstQ = data[quizIndex];
+    //     let options = [firstQ.answer_a, firstQ.answer_b, firstQ.answer_c, firstQ.answer_d];
 
-        $('#question-number').text(quizIndex + 1);
-        $('#question').text(nextQ.question);
-        $('#option-a').text(options[0]);
-        $('#option-b').text(options[1]);
-        $('#option-c').text(options[2]);
-        $('#option-d').text(options[3]);
+    //     $('#question-number').text(quizIndex + 1);
+    //     $('#question').text(nextQ.question);
+    //     $('#option-a').text(options[0]);
+    //     $('#option-b').text(options[1]);
+    //     $('#option-c').text(options[2]);
+    //     $('#option-d').text(options[3]);
 
-        $('.option-item').on('click', function() {
-            let userAns = this.innerText;
-            let currentQ = data[quizIndex];
-            let options = [currentQ.answer_a, currentQ.answer_b, currentQ.answer_c, currentQ.answer_d];
-            let correctAns = currentQ.correct_answer;
+    //     $('.option-item').on('click', function() {
+    //         let userAns = this.innerText;
+    //         let currentQ = data[quizIndex];
+    //         let options = [currentQ.answer_a, currentQ.answer_b, currentQ.answer_c, currentQ.answer_d];
+    //         let correctAns = currentQ.correct_answer;
     
-            if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
-                // immediate results of selecting an answer
-                buttonEvent(options, userAns, correctAns);
-            }
+    //         if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
+    //             // immediate results of selecting an answer
+    //             buttonEvent(options, userAns, correctAns);
+    //         }
     
-            if (quizIndex < questions.length) {
-                setTimeout(function () {
-                    let nextQ = data[quizIndex];
-                    options = [nextQ.answer_a, nextQ.answer_b, nextQ.answer_c, nextQ.answer_d];
+    //         if (quizIndex < questions.length) {
+    //             setTimeout(function () {
+    //                 let nextQ = data[quizIndex];
+    //                 options = [nextQ.answer_a, nextQ.answer_b, nextQ.answer_c, nextQ.answer_d];
     
-                    $('img').remove();
-                    $('#question-number').text(quizIndex + 1);
-                    $('#question').text(nextQ.question);
-                    $('#option-a').text(options[0]);
-                    $('#option-b').text(options[1]);
-                    $('#option-c').text(options[2]);
-                    $('#option-d').text(options[3]);
-                }, timer);
-            }
-        })
-      })
-      .fail((error) => {
-        console.log(error);
-      });
+    //                 $('img').remove();
+    //                 $('#question-number').text(quizIndex + 1);
+    //                 $('#question').text(nextQ.question);
+    //                 $('#option-a').text(options[0]);
+    //                 $('#option-b').text(options[1]);
+    //                 $('#option-c').text(options[2]);
+    //                 $('#option-d').text(options[3]);
+    //             }, timer);
+    //         }
+    //     })
+    //   })
+    //   .fail((error) => {
+    //     console.log(error);
+    //   });
 
     // $('.option-item').on('click', function() {
 
