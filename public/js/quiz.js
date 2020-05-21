@@ -135,40 +135,41 @@ function buttonEvent(options, userAns, correctAns) {
 // Q for question
 $(document).ready(function () {
 
-    $('.option-item').on('click', function() {
+    // $('.option-item').on('click', function() {
 
-        if (allowClick) {
-            quizIndex++;
-            console.log('question ' + quizIndex + ' done');
-            disableButtons();
-        }
-        // condition for score page
-        if (quizIndex >= 5) {
-            setTimeout(function () {
-                showScore();
-                $('#score').text(userCorrectCount);
-            }, timer);
-        }
-    })
+    //     if (allowClick) {
+    //         quizIndex++;
+    //         disableButtons();
+    //     }
+    //     // condition for score page
+    //     if (quizIndex >= 5) {
+    //         setTimeout(function () {
+    //             showScore();
+    //             $('#score').text(userCorrectCount);
+    //         }, timer);
+    //     }
+    // })
 
     $("#start").on("click", function (e) {
         e.preventDefault();
         console.log('quiz start');
         startQuiz();
-        // showScore();
-        
     
         $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
           .done((data) => {
-            console.log(data);
-            questions = data; // alias
-            console.log(questions[0]);
+            // console.log(data);
+            questions = data.question; // alias
+            console.log(questions);
+            console.log(questions.length);
             
-            let firstQ = data[quizIndex];
+            let dataIndex = 0;
+            let qDataIndex = 0;
+            let firstQ = questions[quizIndex][dataIndex][qDataIndex];
+            console.log(firstQ);
             let options = [firstQ.answer_a, firstQ.answer_b, firstQ.answer_c, firstQ.answer_d];
     
             $('#question-number').text(quizIndex + 1);
-            $('#question').text(nextQ.question);
+            $('#question').text(firstQ.question_body);
             $('#option-a').text(options[0]);
             $('#option-b').text(options[1]);
             $('#option-c').text(options[2]);
@@ -177,7 +178,7 @@ $(document).ready(function () {
             $('.option-item').on('click', function() {
                 let userAns = this.innerText;
                 // check result with database
-                let currentQ = data[quizIndex];
+                let currentQ = questions[quizIndex][dataIndex][qDataIndex];
                 let options = [currentQ.answer_a, currentQ.answer_b, currentQ.answer_c, currentQ.answer_d];
                 let correctAns = currentQ.correct_answer;
         
@@ -186,28 +187,31 @@ $(document).ready(function () {
                     buttonEvent(options, userAns, correctAns);
                 }
         
-                if (quizIndex < questions.length) {
+                // condition for score page
+                if (quizIndex >= questions.length) {
+                    console.log('quiz complete')
                     setTimeout(function () {
-                        let nextQ = data[quizIndex];
+                        showScore();
+                        $('#score').text(userCorrectCount);
+                    }, timer);
+                }
+
+                else if (quizIndex < questions.length) {
+                    setTimeout(function () {
+                        let nextQ = questions[quizIndex][dataIndex][qDataIndex];
                         options = [nextQ.answer_a, nextQ.answer_b, nextQ.answer_c, nextQ.answer_d];
         
                         // remove answer check image
                         $('img').remove();
                         $('#question-number').text(quizIndex + 1);
-                        $('#question').text(nextQ.question);
+                        $('#question').text(nextQ.question_body);
                         $('#option-a').text(options[0]);
                         $('#option-b').text(options[1]);
                         $('#option-c').text(options[2]);
                         $('#option-d').text(options[3]);
                     }, timer);
 
-                // condition for score page
-                if (quizIndex >= questions.length) {
-                    setTimeout(function () {
-                        showScore();
-                        $('#score').text(userCorrectCount);
-                    }, timer);
-                }
+
                 }
             })
           })
@@ -215,81 +219,5 @@ $(document).ready(function () {
             console.log(error);
           });
       });
-    // e.preventDefault();
-
-    // $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
-    //   .done((data) => {
-
-    //     console.log(data);
-        // let firstQ = data[quizIndex];
-        // let options = [firstQ.answer_a, firstQ.answer_b, firstQ.answer_c, firstQ.answer_d];
-
-        // $('#question-number').text(quizIndex + 1);
-        // $('#question').text(nextQ.question);
-        // $('#option-a').text(options[0]);
-        // $('#option-b').text(options[1]);
-        // $('#option-c').text(options[2]);
-        // $('#option-d').text(options[3]);
-
-        // $('.option-item').on('click', function() {
-        //     let userAns = this.innerText;
-        //     let currentQ = data[quizIndex];
-        //     let options = [currentQ.answer_a, currentQ.answer_b, currentQ.answer_c, currentQ.answer_d];
-        //     let correctAns = currentQ.correct_answer;
-    
-        //     if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
-        //         // immediate results of selecting an answer
-        //         buttonEvent(options, userAns, correctAns);
-        //     }
-    
-        //     if (quizIndex < questions.length) {
-        //         setTimeout(function () {
-        //             let nextQ = data[quizIndex];
-        //             options = [nextQ.answer_a, nextQ.answer_b, nextQ.answer_c, nextQ.answer_d];
-    
-        //             $('img').remove();
-        //             $('#question-number').text(quizIndex + 1);
-        //             $('#question').text(nextQ.question);
-        //             $('#option-a').text(options[0]);
-        //             $('#option-b').text(options[1]);
-        //             $('#option-c').text(options[2]);
-        //             $('#option-d').text(options[3]);
-        //         }, timer);
-        //     }
-        // })
-    //   })
-    //   .fail((error) => {
-    //     console.log(error);
-    //   });
-
-    // $('.option-item').on('click', function() {
-
-    //     let userAns = this.innerText;
-    //     let currentQuestion = questions[quizIndex];
-    //     let options = currentQuestion.options;
-    //     let correctAns = currentQuestion.answer;
-    //     // compareAnswer(options, userAns, correctAns);
-
-    //     // console.log('Selected answer: ' + userAns);
-    //     if (quizIndex <= questions.length && userAnswers[quizIndex] != userAns) {
-    //         // immediate results of selecting an answer
-    //         buttonEvent(options, userAns, correctAns);
-    //     }
-
-    //     if (quizIndex < questions.length) {
-    //         setTimeout(function () {
-    //             let nextQuestion = questions[quizIndex];
-    //             options = nextQuestion.options;
-
-    //             $('img').remove();
-    //             $('#question-number').text(quizIndex + 1);
-    //             $('#question').text(nextQuestion.question);
-    //             $('#option-a').text(options[0]);
-    //             $('#option-b').text(options[1]);
-    //             $('#option-c').text(options[2]);
-    //             $('#option-d').text(options[3]);
-    //         }, timer);
-    //     }
-    // })
 })
 

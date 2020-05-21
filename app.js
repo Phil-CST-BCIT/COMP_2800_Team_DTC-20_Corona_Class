@@ -28,9 +28,9 @@ app.set("view engine", "ejs");
 const promisePool = mysql
   .createPool({
     host: "sql3.freemysqlhosting.net",
-    user: "sql3340475",
-    database: "sql3340475",
-    password: "nJAW8RPvi3",
+    user: "sql3342447",
+    database: "sql3342447",
+    password: "Y2fkhaReIp",
   })
   .promise();
 
@@ -97,6 +97,14 @@ app.get("/questions", (req, res) => {
 
 app.get("/quizStart", (req, res) => {
   res.render("pages/quizStart");
+});
+
+app.get("/slideList", (req, res) => {
+  res.render("pages/slideList");
+});
+
+app.get("/slides/slide1", (req, res) => {
+  res.render("pages/slides/slide1");
 });
 
 app.get('/quiz', (req, res) => {
