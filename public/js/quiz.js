@@ -1,5 +1,7 @@
 // quiz testing + score and nav logic
 
+const correctImgURL = '/css/images/correct.png';
+const wrongImgURL = '/css/images/wrong.png';
 let userAnswers = [];
 // let questionsArray = makeQuestionArray(questions);
 // let answerArray = makeAnswerArray(questions);
@@ -71,6 +73,7 @@ function answerPopup (img_url) {
     popupDiv.appendChild(img);
 }
 
+// temporarily change border color of an answer
 function highlightAnswer(options, answer, color) {
     let optionIdAffix = ['A', 'B', 'C', 'D'];
     for (let i = 0; i < options.length; i++) {
@@ -78,6 +81,7 @@ function highlightAnswer(options, answer, color) {
         if (options[i] === answer) {
             targetId.style.borderColor = color;
             setTimeout(function () {
+                // reset to default border color
                 targetId.style.borderColor = '#6E1B09';
             }, timer);
             break;
@@ -87,17 +91,18 @@ function highlightAnswer(options, answer, color) {
 
 function compareAnswer(options, input, answer) {
     let isCorrect = checkAnswer(input, answer);
+    // green shade for correct answer
     highlightAnswer(options, answer, 'rgb(53, 250, 18)');
     if (!isCorrect) {
         // incorrect answer
         highlightAnswer(options, input, 'grey');
-        answerPopup('/css/images/wrong.png');
+        answerPopup(wrongImgURL);
     }
     else {
         // correct answer, increments user points
         userPoints += qPointValue;
         userCorrectCount++;
-        answerPopup('/css/images/correct.png');
+        answerPopup(correctImgURL);
     }
 }
 
@@ -130,16 +135,33 @@ function buttonEvent(options, userAns, correctAns) {
 // Q for question
 $(document).ready(function () {
 
+    $('.option-item').on('click', function() {
+
+        if (allowClick) {
+            quizIndex++;
+            console.log('question ' + quizIndex + ' done');
+            disableButtons();
+        }
+        // condition for score page
+        if (quizIndex >= 5) {
+            setTimeout(function () {
+                showScore();
+                $('#score').text(userCorrectCount);
+            }, timer);
+        }
+    })
+
     $("#start").on("click", function (e) {
         e.preventDefault();
-        // startQuiz();
-        showScore();
+        console.log('quiz start');
+        startQuiz();
+        // showScore();
         
     
         $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
           .done((data) => {
             console.log(data);
-            questions = data;
+            questions = data; // alias
             console.log(questions[0]);
             
             let firstQ = data[quizIndex];
@@ -154,6 +176,7 @@ $(document).ready(function () {
     
             $('.option-item').on('click', function() {
                 let userAns = this.innerText;
+                // check result with database
                 let currentQ = data[quizIndex];
                 let options = [currentQ.answer_a, currentQ.answer_b, currentQ.answer_c, currentQ.answer_d];
                 let correctAns = currentQ.correct_answer;
@@ -179,7 +202,7 @@ $(document).ready(function () {
                     }, timer);
 
                 // condition for score page
-                if (quizIndex > questions.length) {
+                if (quizIndex >= questions.length) {
                     setTimeout(function () {
                         showScore();
                         $('#score').text(userCorrectCount);
