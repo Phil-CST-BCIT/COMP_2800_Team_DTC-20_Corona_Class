@@ -124,7 +124,7 @@ app.get("/questions/start", (req, res) => {
     }
 
     if (myQuestions.length === numberOfQuestions) {
-      res.render('pages/quiz', { questions: myQuestions });
+      res.render('pages/quiz', { data: myQuestions });
     }
   }
 

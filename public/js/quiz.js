@@ -110,13 +110,14 @@ function buttonEvent(options, userAns, correctAns) {
 
 // from 2537 week 3 starter code package
 // Q for question
-$(document).ready(function(){
+$(document).ready(function () {
 
-    e.preventDefault();
+    // e.preventDefault();
 
     $.ajax({ method: "GET", url: "/questions/start", dataType: "json" })
       .done((data) => {
 
+        console.log(data);
         let firstQ = data[quizIndex];
         let options = [firstQ.answer_a, firstQ.answer_b, firstQ.answer_c, firstQ.answer_d];
 
