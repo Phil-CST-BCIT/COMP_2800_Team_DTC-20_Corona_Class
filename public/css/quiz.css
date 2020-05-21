@@ -1,5 +1,6 @@
-.wrapper {
-    display: grid;
+#questionPage {
+    /* display: grid; */
+    display: none;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(10, 1fr);
 }
