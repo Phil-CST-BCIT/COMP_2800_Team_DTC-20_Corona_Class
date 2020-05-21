@@ -106,7 +106,7 @@ function changeSlide() {
 $(document).ready(function () {
   $("#nextbtn").on("click", function () {
     if (slideIndex < slides.length - 1) {
-      console.log(slideIndex);
+      // console.log(slideIndex);
       ++slideIndex;
 
       changeSlide();

@@ -103,8 +103,16 @@ app.get("/slideList", (req, res) => {
   res.render("pages/slideList");
 });
 
+let firstSlide = {
+  id: 1,
+  title: "Wash your Hands Often",
+  content: "Wash your hands before and after preparing food, tending to someone sick, or treating a wound. Wash before touching your face or eating food, and wash after using the toilet or covering a sneeze, cough, or blowing your nose.",
+  page_number: 1,
+  img_url: "/css/images/safety_slide/safety1.png",
+  is_complete: false
+}
 app.get("/slides/slide1", (req, res) => {
-  res.render("pages/slides/slide1");
+  res.render("pages/slides/slide1", firstSlide);
 });
 
 app.get('/quiz', (req, res) => {
