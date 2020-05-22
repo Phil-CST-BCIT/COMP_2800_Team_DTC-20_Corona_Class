@@ -84,11 +84,6 @@ app.get("/aboutUs", (req, res) => {
   }
 });
 
-app.get("/login", (req, res) => {
-  let notice = "";
-  res.render("pages/login", { msg: notice });
-});
-
 app.get("/user/login", (req, res) => {
   let notice = "";
   res.render("pages/user/login", { msg: notice });
@@ -106,11 +101,6 @@ app.get("/success", (req, res) => {
 app.get("/home", (req, res) => {
   let someone = req.session.username;
   res.render("pages/home", { namePlaceHolder: someone });
-});
-
-app.get("/error", (req, res) => {
-  let myError = "";
-  res.render("pages/error", { err: myError });
 });
 
 app.get("/update", (req, res) => {
@@ -137,16 +127,16 @@ app.get("/slideList", (req, res) => {
   res.render("pages/slideList");
 });
 
-let firstSlide = {
-  id: 1,
-  title: "Wash your Hands Often",
-  content:
-    "Wash your hands before and after preparing food, tending to someone sick, or treating a wound. Wash before touching your face or eating food, and wash after using the toilet or covering a sneeze, cough, or blowing your nose.",
-  page_number: 1,
-  img_url: "/css/images/safety_slide/safety1.png",
-  is_complete: false,
-};
 app.get("/slides/slide1", (req, res) => {
+  let firstSlide = {
+    id: 1,
+    title: "Wash your Hands Often",
+    content:
+      "Wash your hands before and after preparing food, tending to someone sick, or treating a wound. Wash before touching your face or eating food, and wash after using the toilet or covering a sneeze, cough, or blowing your nose.",
+    page_number: 1,
+    img_url: "/css/images/safety_slide/safety1.png",
+    is_complete: false,
+  };
   res.render("pages/slides/slide1", firstSlide);
 });
 
@@ -155,7 +145,7 @@ app.get("/quiz", (req, res) => {
 });
 
 app.get("/questions/start", (req, res) => {
-  const numberOfQuesions = 5;
+  const numberOfQuestions = 5;
   const randomFactor = 10;
   let id = [];
   let myQuestions = [];
