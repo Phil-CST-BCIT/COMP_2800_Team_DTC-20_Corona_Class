@@ -7,10 +7,9 @@ Corona Class is a `<web app>` that allows `<any people>` to view the statics rel
 The app provides an account to store personal data and progress.
 The app provides lessons to teach people how to prevent, diagnose COVID-19, and giving proposals.
 The app provides quizzes to test the knowledge about COVID-19.
-The app provides dashboards to visulize the global COVID-19 data.
+The app provides a statistics dashboard to visulize the global COVID-19 data.
 The app provides an open API for other web developsers to use the data visualization in their apps.
 
-The UI of the APP is primarily built with React framework.
 
 ## Prerequisites
 
