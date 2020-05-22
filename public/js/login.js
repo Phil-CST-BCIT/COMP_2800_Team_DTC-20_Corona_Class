@@ -3,8 +3,8 @@ $(document).ready(function () {
     event.preventDefault();
     const email = $.trim($("#email").val());
     const password = $.trim($("#password").val());
-    console.log(email);
-    console.log(password);
+    // console.log(email);
+    // console.log(password);
 
     if (email.length === 0 || password.length === 0) {
       $("#auth-details > div").text("email and password cannot be empty");
@@ -18,9 +18,9 @@ $(document).ready(function () {
         data: { userEmail: email, userPassword: password },
       })
         .done(function (data) {
-          console.log(data);
+          // console.log(data);
           if (!data.isUser) {
-            $("#auth-details > div").text("user not existing");
+            $("#auth-details > div").text("user does not exist");
           } else if (!data.isPWD) {
             $("#auth-details > div").text("incorrect email or password");
           } else if (data.isUser && data.isPWD) {

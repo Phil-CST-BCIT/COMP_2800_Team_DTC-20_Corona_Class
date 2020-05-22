@@ -6,8 +6,9 @@ const fileStore = require("session-file-store")(session);
 const app = express();
 const saltRounds = 8;
 const port = process.env.PORT || 8080;
-const MAX_LOGIN_TIME = 5000;
-
+const DEFAULT_TIME = 2000;
+const MAX_LOGIN_TIME = 67000;
+const MIN_AGE_ALLOW = 7000;
 app.use(
   session({
     store: new fileStore({
@@ -16,7 +17,7 @@ app.use(
     name: "my cookie",
     secret: "class",
     cookie: {
-      maxAge: MAX_LOGIN_TIME,
+      maxAge: DEFAULT_TIME,
     },
   })
 );
@@ -53,7 +54,7 @@ const promisePool = mysql
  *********************** GET REQUESTS *********************
  **********************************************************/
 app.get("/", (req, res) => {
-  res.render("pages/index");
+  res.redirect("/index");
 });
 
 app.get("/index", (req, res) => {
@@ -61,7 +62,7 @@ app.get("/index", (req, res) => {
   promisePool
     .execute(qry)
     .then(function ([data, metadata]) {
-      console.log(data[0]);
+      // console.log(data[0]);
       res.render("pages/index", {
         totalCases: data[0].total_cases,
         activeCases: data[0].total_active_cases,
@@ -77,11 +78,7 @@ app.get("/graph", (req, res) => {
 });
 
 app.get("/aboutUs", (req, res) => {
-  if (getStatus(req.session)) {
-    res.render("pages/aboutUs");
-  } else {
-    res.redirect("/index");
-  }
+  res.render("pages/aboutUs");
 });
 
 app.get("/user/login", (req, res) => {
@@ -94,33 +91,44 @@ app.get("/user/signup", (req, res) => {
   res.render("pages/user/create", { msg: notice });
 });
 
-app.get("/success", (req, res) => {
-  res.render("pages/success");
-});
-
 app.get("/home", (req, res) => {
-  let someone = req.session.username;
-  res.render("pages/home", { namePlaceHolder: someone });
+  if (req.session.cookie.maxAge <= MIN_AGE_ALLOW) {
+    res.redirect("/user/login");
+  } else {
+    let someone = req.session.username;
+    res.render("pages/home", { namePlaceHolder: someone });
+  }
 });
 
 app.get("/update", (req, res) => {
-  res.render("pages/user");
-});
-
-app.get("/user", (req, res) => {
-  if (req.session.cookie.maxAge < 7000) {
+  if (req.session.cookie.maxAge <= MIN_AGE_ALLOW) {
     res.redirect("/user/login");
   } else {
     res.render("pages/user");
   }
 });
 
-app.get("/questions", (req, res) => {
-  res.render("pages/questions", { questions: "questions" });
+app.get("/user", (req, res) => {
+  if (req.session.cookie.maxAge < MIN_AGE_ALLOW) {
+    res.redirect("/user/login");
+  } else {
+    res.render("pages/user");
+  }
 });
 
+app.get("/quiz", (req, res) => {
+  if (req.session.cookie.maxAge <= MIN_AGE_ALLOW) {
+    res.redirect("/user/login");
+  } else {
+    res.render("pages/quiz");
+  }
+});
 app.get("/quizStart", (req, res) => {
-  res.render("pages/quizStart");
+  if (req.session.cookie.maxAge <= MIN_AGE_ALLOW) {
+    res.redirect("/user/login");
+  } else {
+    res.render("pages/quizStart");
+  }
 });
 
 app.get("/slideList", (req, res) => {
@@ -140,8 +148,8 @@ app.get("/slides/slide1", (req, res) => {
   res.render("pages/slides/slide1", firstSlide);
 });
 
-app.get("/quiz", (req, res) => {
-  res.render("pages/quiz");
+app.get("/questions", (req, res) => {
+  res.render("pages/questions", { questions: "questions" });
 });
 
 app.get("/questions/start", (req, res) => {
@@ -220,6 +228,11 @@ app.get("/graph/stats", function (req, res) {
     });
 });
 
+app.get("/logout", (req, res) => {
+  req.session.cookie.maxAge = DEFAULT_TIME;
+  res.redirect("/index");
+});
+
 /**********************************************************
  *********************** POST REQUESTS ********************
  **********************************************************/
@@ -235,7 +248,7 @@ app.get("/graph/stats", function (req, res) {
  **************************/
 
 app.post("/user/login", function (req, res, next) {
-  console.log(req.body.userPassword);
+  // console.log(req.body.userPassword);
   const pwd = req.body.userPassword;
   const email = req.body.userEmail;
   const qry = `SELECT users.email, users.password, users.user_name FROM users WHERE users.email = ? ORDER BY id DESC LIMIT 1;`;
@@ -243,14 +256,14 @@ app.post("/user/login", function (req, res, next) {
   promisePool
     .execute(qry, qryData)
     .then(function ([data, metadata]) {
-      console.log(data[0].password);
-      if (data.length === 0) {
+      // console.log(data[0]);
+      if (!data[0]) {
         res.send({ isUser: 0 });
       } else {
         bcrypt.compare(pwd, data[0].password, function (err, result) {
           if (email === data[0].email && result) {
             req.session.username = data[0].user_name;
-            req.session.cookie.maxAge = 25000;
+            req.session.cookie.maxAge = MAX_LOGIN_TIME;
             res.send({ isUser: 1, isPWD: 1 });
           } else {
             res.send({ isPWD: 0 });
@@ -302,11 +315,10 @@ app.post("/update", (req, res) => {
   const email = req.body.email;
   const oldName = req.body.oldName;
   const newName = req.body.newName;
-
+  const qry = `UPDATE users SET users.user_name = ? WHERE users.user_name = ? AND users.email = ?;`;
+  const qryData = [newName, oldName, email];
   promisePool
-    .execute(
-      `UPDATE users SET users.user_name = '${newName}' WHERE users.user_name = '${oldName}' AND users.email = '${email}'`
-    )
+    .execute(qry, qryData)
     .then(([data, meta]) => {
       console.log(data);
     })
@@ -318,12 +330,14 @@ app.post("/update", (req, res) => {
 
 app.post("/delete", (req, res) => {
   const email = req.body.email;
+  const qry = `DELETE FROM users WHERE '${email}' = users.email;`;
+  const qryData = [email];
 
   promisePool
-    .execute(`DELETE FROM users WHERE '${email}' = users.email;`)
+    .execute(qry, qryData)
     .then(([data, meta]) => {
       //console.log(data);
-      res.render("pages/login", { msg: "Your Account has been deleted" });
+      res.render("pages/user/login", { msg: "Your Account has been deleted" });
     })
     .catch((error) => {
       console.log(error);
@@ -331,7 +345,7 @@ app.post("/delete", (req, res) => {
 });
 
 app.post("/graph/stats", function (req, res) {
-  console.log(req.body.stats);
+  // console.log(req.body.stats);
   res.send({ status: "received" });
   // const receivedData = req.body.stats.countrydata[0];
   // const country = receivedData.info.title;
