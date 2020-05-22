@@ -1,5 +1,3 @@
-// in the name of god
-
 var isOpen = true;
 
 $(document).ready(function () {
