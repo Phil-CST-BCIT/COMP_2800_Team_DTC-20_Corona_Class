@@ -17,7 +17,7 @@ $(document).ready(function (event) {
         $(".totalCases>h4").append(totalConfirmedCases);
         $(".activeCases>h4").append(activeCases);
       } else {
-        console.log(data.status);
+        // console.log(data.status);
         pullData();
       }
     })
@@ -32,7 +32,7 @@ $(document).ready(function (event) {
   function storeData(data) {
     cache.push(data);
     isBack = true;
-    console.log(cache[0]);
+    // console.log(cache[0]);
 
     if (isBack) {
       $.ajax({
@@ -42,7 +42,7 @@ $(document).ready(function (event) {
         data: { stats: cache[0] },
       })
         .done(function (data) {
-          console.log(data);
+          // console.log(data);
         })
         .fail((error) => {
           console.log(error);
@@ -108,7 +108,7 @@ $(document).ready(function (event) {
               ];
             dates.push(`${tempMonth}/0${tempDay}/2020`);
             cases.push(newCase);
-            console.log(newCase);
+            // console.log(newCase);
           } else {
             let tempMonth = month + 1;
             let tempDay = j + 1;
@@ -118,7 +118,7 @@ $(document).ready(function (event) {
               ];
             dates.push(`${tempMonth}/${tempDay}/2020`);
             cases.push(newCase);
-            console.log(newCase);
+            // console.log(newCase);
           }
         }
       }
