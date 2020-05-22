@@ -5,9 +5,9 @@ $(document).ready(function (event) {
     const username = $.trim($("#username").val());
     const password = $.trim($("#password").val());
 
-    console.log(email);
-    console.log(username);
-    console.log(password);
+    // console.log(email);
+    // console.log(username);
+    // console.log(password);
 
     if (email.length === 0 || password.length === 0 || username.length === 0) {
       $("#auth-details > div").text("email, user name, or password is empty");
