@@ -136,12 +136,12 @@ $(document).ready(function (event) {
       mode: "lines",
       line: {
         color: "rgb(128, 0, 128)",
-        width: 3,
+        width: 2,
       },
     };
 
     var layout = {
-      width: 350,
+      width: 360,
       height: 350,
       xaxis: {
         autotick: false,
@@ -149,7 +149,7 @@ $(document).ready(function (event) {
         ticks: "outside",
         tick0: dates[0],
         ticklen: dates.length,
-        tickwidth: 1,
+        tickwidth: 2,
         tickcolor: "#000",
       },
       yaxis: {

@@ -265,8 +265,10 @@ app.post("/user/login", function (req, res, next) {
             req.session.username = data[0].user_name;
             req.session.cookie.maxAge = MAX_LOGIN_TIME;
             res.send({ isUser: 1, isPWD: 1 });
-          } else {
-            res.send({ isPWD: 0 });
+          } else if (email === data[0].email && !result) {
+            res.send({ isUser: 1, isPWD: 0 });
+          } else if (!(email === data[0].email)) {
+            res.send({ isUser: 0, isPWD: 0 });
           }
         });
       }
@@ -347,16 +349,16 @@ app.post("/delete", (req, res) => {
 app.post("/graph/stats", function (req, res) {
   // console.log(req.body.stats);
   res.send({ status: "received" });
-  // const receivedData = req.body.stats.countrydata[0];
-  // const country = receivedData.info.title;
-  // const totalCases = receivedData.total_cases;
-  // const totalActiveCases = receivedData.total_active_cases;
-  // const totalRecovered = receivedData.total_recovered;
-  // const totalDeath = receivedData.total_deaths;
-  // const totalNewCasesToday = receivedData.total_new_cases_today;
-  // const totalNewDeathsToday = receivedData.total_new_deaths_today;
-  // const source = receivedData.info.source;
-  // const isReady = 1;
+  const receivedData = req.body.stats.countrydata[0];
+  const country = receivedData.info.title;
+  const totalCases = receivedData.total_cases;
+  const totalActiveCases = receivedData.total_active_cases;
+  const totalRecovered = receivedData.total_recovered;
+  const totalDeath = receivedData.total_deaths;
+  const totalNewCasesToday = receivedData.total_new_cases_today;
+  const totalNewDeathsToday = receivedData.total_new_deaths_today;
+  const source = receivedData.info.source;
+  const isReady = 1;
   // console.log(
   //   country,
   //   totalCases,
@@ -367,26 +369,26 @@ app.post("/graph/stats", function (req, res) {
   //   totalNewDeathsToday,
   //   source
   // );
-  // const qry = `INSERT INTO stats(country,total_cases,total_active_cases,total_recovered,total_death,total_new_cases_today,total_new_deaths_today,source,is_ready) VALUES(?,?,?,?,?,?,?,?,?);`;
-  // const qryData = [
-  //   country,
-  //   totalCases,
-  //   totalActiveCases,
-  //   totalRecovered,
-  //   totalDeath,
-  //   totalNewCasesToday,
-  //   totalNewDeathsToday,
-  //   source,
-  //   isReady,
-  // ];
-  // promisePool
-  //   .execute(qry, qryData)
-  //   .then(() => {
-  //     res.send({ status: "received" });
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  const qry = `INSERT INTO stats(country,total_cases,total_active_cases,total_recovered,total_death,total_new_cases_today,total_new_deaths_today,source,is_ready) VALUES(?,?,?,?,?,?,?,?,?);`;
+  const qryData = [
+    country,
+    totalCases,
+    totalActiveCases,
+    totalRecovered,
+    totalDeath,
+    totalNewCasesToday,
+    totalNewDeathsToday,
+    source,
+    isReady,
+  ];
+  promisePool
+    .execute(qry, qryData)
+    .then(() => {
+      res.send({ status: "received" });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 /******************************************

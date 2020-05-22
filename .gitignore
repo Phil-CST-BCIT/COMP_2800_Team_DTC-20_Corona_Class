@@ -45,3 +45,7 @@ Thumbs.db
 #node modules#
 #################
 node_modules/
+
+#sessions#
+#################
+sessions/

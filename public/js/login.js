@@ -19,10 +19,10 @@ $(document).ready(function () {
       })
         .done(function (data) {
           // console.log(data);
-          if (!data.isUser) {
+          if (!data.isUser && !data.isPWD) {
             $("#auth-details > div").text("user does not exist");
-          } else if (!data.isPWD) {
-            $("#auth-details > div").text("incorrect email or password");
+          } else if (!data.isPWD && data.isUser) {
+            $("#auth-details > div").text("incorrect password");
           } else if (data.isUser && data.isPWD) {
             window.location.replace("/home");
           }
