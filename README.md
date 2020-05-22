@@ -21,22 +21,6 @@ Before you begin, ensure you have met the following requirements:
 - You have a `<Window/Mac>` computer to implement the data visualization.
 - You have read `<guide/link/documentation_related_to_project>`.
 
-## Implementing <Corona Class data graphics>
-
-To install <Corona Class data graphics>, follow these steps:
-
-Linux and macOS:
-
-```
-<install_command>
-```
-
-Windows:
-
-```
-<install_command>
-```
-
 <!-- ## Using <project_name>
 
 To use <project_name>, follow these steps:
