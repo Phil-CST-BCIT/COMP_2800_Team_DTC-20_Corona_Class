@@ -168,16 +168,20 @@ video {
   }
 
   #auth-details {
+    width: 100%;
     padding-top: 20px;
-    font-size: 2em;
-    font-weight: bolder;
+    text-align: center;
     color: white;
     text-shadow: 5px 5px black;
   }
 
+  #auth-details > p {
+    font-size: 2em;
+    font-weight: bolder;
+  }
+
   #auth-details > div {
     padding-top: 50px;
-    text-align: center;
     font-size: small;
   }
 

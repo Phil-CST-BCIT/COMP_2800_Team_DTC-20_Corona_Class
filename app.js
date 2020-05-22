@@ -1,9 +1,25 @@
 const express = require("express");
 const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
+const fileStore = require("session-file-store")(session);
 const app = express();
 const saltRounds = 8;
 const port = process.env.PORT || 8080;
+const MAX_LOGIN_TIME = 5000;
+
+app.use(
+  session({
+    store: new fileStore({
+      path: require("path").join(require("os").tmpdir(), "sessions"),
+    }),
+    name: "my cookie",
+    secret: "class",
+    cookie: {
+      maxAge: MAX_LOGIN_TIME,
+    },
+  })
+);
 
 /**
  * a middleware to handle a request body from a client.
@@ -18,19 +34,18 @@ app.use(express.urlencoded({ extended: true }));
  * uses middleware to res static contents and send them back.
  */
 app.use(express.static("public"));
+
 app.set("view engine", "ejs");
 
 /**
- * Connection pools help reduce the time spent connecting
- * to the MySQL server by reusing a previous connection,
- * leaving them open instead of closing when you are done with them.
+ * a promise connection pool
  */
 const promisePool = mysql
   .createPool({
     host: "sql3.freemysqlhosting.net",
-    user: "sql3340475",
-    database: "sql3340475",
-    password: "nJAW8RPvi3",
+    user: "sql3342447",
+    database: "sql3342447",
+    password: "Y2fkhaReIp",
   })
   .promise();
 
@@ -42,7 +57,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/index", (req, res) => {
-  res.render("pages/index");
+  const qry = `SELECT stats.total_cases, stats.total_active_cases FROM stats ORDER BY id DESC LIMIT 1 `;
+  promisePool
+    .execute(qry)
+    .then(function ([data, metadata]) {
+      console.log(data[0]);
+      res.render("pages/index", {
+        totalCases: data[0].total_cases,
+        activeCases: data[0].total_active_cases,
+      });
+    })
+    .catch(() => {
+      res.render("pages/index", { totalCases: 81324, activeCases: 33457 });
+    });
 });
 
 app.get("/graph", (req, res) => {
@@ -50,7 +77,11 @@ app.get("/graph", (req, res) => {
 });
 
 app.get("/aboutUs", (req, res) => {
-  res.render("pages/aboutUs");
+  if (getStatus(req.session)) {
+    res.render("pages/aboutUs");
+  } else {
+    res.redirect("/index");
+  }
 });
 
 app.get("/login", (req, res) => {
@@ -73,8 +104,7 @@ app.get("/success", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  console.log(req.body);
-  let someone = "";
+  let someone = req.session.username;
   res.render("pages/home", { namePlaceHolder: someone });
 });
 
@@ -88,7 +118,11 @@ app.get("/update", (req, res) => {
 });
 
 app.get("/user", (req, res) => {
-  res.render("pages/user");
+  if (req.session.cookie.maxAge < 7000) {
+    res.redirect("/user/login");
+  } else {
+    res.render("pages/user");
+  }
 });
 
 app.get("/questions", (req, res) => {
@@ -96,12 +130,13 @@ app.get("/questions", (req, res) => {
 });
 
 app.get("/questions/start", (req, res) => {
-  let id = [];
-  let num = Math.floor(Math.random() * 10) + 1;
-  let selClause = `SELECT * FROM questions WHERE id = ? LIMIT 1;`;
-  let myQuestions = [];
   const numberOfQuesions = 5;
   const randomFactor = 10;
+  let id = [];
+  let myQuestions = [];
+  let num = Math.floor(Math.random() * randomFactor) + 1;
+  let selClause = `SELECT * FROM questions WHERE id = ? LIMIT 1;`;
+
   if (!id) {
     id.push(num);
   } else {
@@ -127,133 +162,123 @@ app.get("/questions/start", (req, res) => {
   getQ();
 });
 
+app.get("/ref", (req, res) => {
+  res.render("pages/ref");
+});
+
+app.get("/graph/stats", function (req, res) {
+  const qry = `SELECT * FROM stats ORDER BY id DESC LIMIT 1;`;
+  const myDate = new Date();
+  const today =
+    "" +
+    myDate.getFullYear() +
+    "-" +
+    (myDate.getMonth() + 1) +
+    "-" +
+    myDate.getDate();
+  promisePool
+    .execute(qry)
+    .then(function ([data, metadata]) {
+      if (!data[0]) {
+        res.json({ status: 0 });
+      } else {
+        const createdDate = new Date(data[0].created);
+        const aDay =
+          "" +
+          createdDate.getFullYear() +
+          "-" +
+          (createdDate.getMonth() + 1) +
+          "-" +
+          createdDate.getDate(); // the db uses Toronto time
+        // console.log(aDay);
+        // console.log(today);
+        if (aDay === today) {
+          res.json({ status: 1, stats: data[0] });
+        } else {
+          res.json({ status: 0 });
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 /**********************************************************
  *********************** POST REQUESTS ********************
  **********************************************************/
+/****************************
+ * RE-WRITE LOGIN/CREATE USER
+ *
+ * STRUCTURE-- VIEWS
+ *              |_PAGES
+ *                  |__USER
+ *                        |__LOGIN
+ *                        |__CREATE
+ *                  |__OTHERS....
+ **************************/
 
-app.post("/usrInfo", (req, res, next) => {
-  //the number of inputs from either Sign-up or Log-in
-  const count = Object.keys(req.body).length;
-
-  if (count === 3) {
-    //console.log(count);
-    const user = {
-      email: req.body.email.trim(),
-      username: req.body.username.trim(),
-      password: req.body.password.trim(),
-    };
-
-    if (
-      user.email !== "" &&
-      user.username !== "" &&
-      user.password !== "" &&
-      user.email !== null &&
-      user.username !== null &&
-      user.password !== null &&
-      user.email !== undefined &&
-      user.username !== undefined &&
-      user.password !== undefined
-    ) {
-      promisePool
-        .execute(
-          `SELECT users.email FROM users WHERE users.email = '${user.email}' ORDER BY id DESC LIMIT 1`
-        )
-        .then(function ([myData, metadata]) {
-          console.log(myData[0]);
-          if (myData[0].email !== undefined) {
-            // console.log("exist");
-            res.render("pages/login", {
-              msg: `exists email '${myData[0].email}'`,
-            });
+app.post("/user/login", function (req, res, next) {
+  console.log(req.body.userPassword);
+  const pwd = req.body.userPassword;
+  const email = req.body.userEmail;
+  const qry = `SELECT users.email, users.password, users.user_name FROM users WHERE users.email = ? ORDER BY id DESC LIMIT 1;`;
+  const qryData = [email];
+  promisePool
+    .execute(qry, qryData)
+    .then(function ([data, metadata]) {
+      console.log(data[0].password);
+      if (data.length === 0) {
+        res.send({ isUser: 0 });
+      } else {
+        bcrypt.compare(pwd, data[0].password, function (err, result) {
+          if (email === data[0].email && result) {
+            req.session.username = data[0].user_name;
+            req.session.cookie.maxAge = 25000;
+            res.send({ isUser: 1, isPWD: 1 });
           } else {
-            next();
-            return;
+            res.send({ isPWD: 0 });
           }
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+/*********************************
+ ********** SIGN UP **************
+ *********************************/
+
+app.post("/user/signup", function (req, res) {
+  const email = req.body.userEmail;
+  const name = req.body.userName;
+  const pwd = req.body.userPassword;
+  //sync functions generating salt and hash value.
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashed = bcrypt.hashSync(pwd, salt);
+
+  const selQry = `SELECT users.email FROM users WHERE users.email = ? ORDER BY id DESC LIMIT 1;`;
+  const selQryData = [email];
+  const insertQry = `INSERT INTO users(email, user_name, password) VALUES (?, ?, ?)`;
+  const insertQryData = [email, name, hashed];
+  async function checkExistence() {
+    const data = await promisePool.execute(selQry, selQryData);
+    if (data[0][0] && data[0][0].email === email) {
+      res.send({ isExist: 1 });
+    } else {
+      promisePool
+        .execute(insertQry, insertQryData)
+        .then(() => {
+          res.send({ isExist: 0 });
         })
         .catch((error) => {
           console.log(error);
         });
-    } else {
-      res.redirect("/login");
     }
-  } else if (count === 2) {
-    console.log(count);
-
-    const regUserName = req.body.username;
-    const regUserPassword = req.body.password;
-    if (
-      regUserName !== null &&
-      regUserName !== "" &&
-      regUserName !== undefined &&
-      regUserPassword !== null &&
-      regUserPassword !== "" &&
-      regUserPassword !== undefined
-    ) {
-      console.log(regUserName);
-      console.log(regUserPassword);
-
-      promisePool
-        .execute(
-          `SELECT users.user_name, users.password FROM users WHERE '${regUserName}' = users.user_name LIMIT 1;`
-        )
-        .then(([data, metadata]) => {
-          console.log(data);
-          bcrypt.compare(regUserPassword, data[0].password, function (
-            err,
-            result
-          ) {
-            if (
-              // authentication
-              regUserName === data[0].user_name &&
-              result
-            ) {
-              res.render("pages/home", { namePlaceHolder: regUserName });
-            } else {
-              res.render("pages/error", {
-                err: "username or password incorrect",
-              });
-            }
-          });
-        })
-        .catch(() => {
-          res.render("pages/error", {
-            err: "username or password incorrect",
-          });
-        });
-    } else {
-      res.redirect("/login");
-    }
-  } else {
-    res.redirect("/login");
   }
-});
-
-app.post("/usrInfo", (req, res) => {
-  console.log("not exist");
-  const user = {
-    email: req.body.email.trim(),
-    username: req.body.username.trim(),
-    password: req.body.password.trim(),
-  };
-  console.log({
-    email: user.email,
-    username: user.username,
-    password: user.password,
-  });
-
-  //sync functions generating salt and hash value.
-  const salt = bcrypt.genSaltSync(saltRounds);
-  const hashed = bcrypt.hashSync(user.password, salt);
-
-  console.log(hashed);
-
-  promisePool
-    .execute(
-      `INSERT INTO users(email, user_name, password )
-        VALUES ('${user.email}', '${user.username}', '${hashed}')`
-    )
-    .then(() => res.redirect("/success"))
-    .catch((error) => console.log(error));
+  checkExistence();
 });
 
 app.post("/update", (req, res) => {
@@ -284,28 +309,54 @@ app.post("/delete", (req, res) => {
       console.log(data);
       res.render("pages/login", { msg: "Your Account has been deleted" });
     })
-    .catch(() => {
-      res.render("pages/error", { err: "email is incorrect" });
+    .catch((error) => {
+      console.log(error);
     });
 });
 
-/****************************
- * RE-WRITE LOGIN/CREATE USER
- *
- * STRUCTURE-- VIEWS
- *              |_PAGES
- *                  |__USER
- *                        |__LOGIN
- *                        |__CREATE
- *                  |__OTHERS....
- **************************/
-
-app.post("/user/login", function (req, res, next) {
-  res.redirect("/user/login");
-});
-
-app.post("/user/signup", function (req, res, next) {
-  res.redirect("pages/user/signup");
+app.post("/graph/stats", function (req, res) {
+  console.log(req.body.stats);
+  res.send({ status: "received" });
+  // const receivedData = req.body.stats.countrydata[0];
+  // const country = receivedData.info.title;
+  // const totalCases = receivedData.total_cases;
+  // const totalActiveCases = receivedData.total_active_cases;
+  // const totalRecovered = receivedData.total_recovered;
+  // const totalDeath = receivedData.total_deaths;
+  // const totalNewCasesToday = receivedData.total_new_cases_today;
+  // const totalNewDeathsToday = receivedData.total_new_deaths_today;
+  // const source = receivedData.info.source;
+  // const isReady = 1;
+  // console.log(
+  //   country,
+  //   totalCases,
+  //   totalActiveCases,
+  //   totalRecovered,
+  //   totalDeath,
+  //   totalNewCasesToday,
+  //   totalNewDeathsToday,
+  //   source
+  // );
+  // const qry = `INSERT INTO stats(country,total_cases,total_active_cases,total_recovered,total_death,total_new_cases_today,total_new_deaths_today,source,is_ready) VALUES(?,?,?,?,?,?,?,?,?);`;
+  // const qryData = [
+  //   country,
+  //   totalCases,
+  //   totalActiveCases,
+  //   totalRecovered,
+  //   totalDeath,
+  //   totalNewCasesToday,
+  //   totalNewDeathsToday,
+  //   source,
+  //   isReady,
+  // ];
+  // promisePool
+  //   .execute(qry, qryData)
+  //   .then(() => {
+  //     res.send({ status: "received" });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 });
 
 /******************************************
