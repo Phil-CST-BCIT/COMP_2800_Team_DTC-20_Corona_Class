@@ -260,3 +260,14 @@ ul > li > a:link {
   right: 20px;
   bottom: 35px;
 }
+
+#github {
+  position: relative;
+  text-align: center;
+  margin-top: 25px;
+}
+
+#github > a > i {
+  font-size: 1.5em;
+  color: white;
+}

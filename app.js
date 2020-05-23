@@ -233,6 +233,12 @@ app.get("/logout", (req, res) => {
   res.redirect("/index");
 });
 
+app.get("/github", (req, res) => {
+  res.redirect(
+    "https://github.com/Phil-CST-BCIT/COMP_2800_Team_DTC-20_Corona_Class"
+  );
+});
+
 /**********************************************************
  *********************** POST REQUESTS ********************
  **********************************************************/
