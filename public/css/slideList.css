@@ -1,0 +1,76 @@
+/* styling for quiz start page */
+
+/* Styling for the quiz preview page. */
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#info {
+  text-align: center;
+}
+
+.header {
+  text-align: center;
+  font-size: 3em;
+  padding: 15px 0px 15px 0px;
+  margin: auto;
+  margin-bottom: 30px;
+  background-color: #393a3c;
+}
+
+.slide-list {
+  margin: 0px 0px 0px 0px;
+}
+
+#slide-ul {
+  position: static;
+  margin: auto;
+  /* vvv currently does nothing vvv */
+  text-align: center;
+}
+
+.slides > li {
+  /* Styling for contents of list items */
+  /* display: flex; */
+  /* justify-content: space-between; */
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.slide-name {
+  font-size: 110%;
+}
+
+/* copied from index.css (see: .statbtn and .statbtn > button) */
+.slides {
+  /* Background styling for list items, plus margins to separate */
+  margin-left: 4px;
+  margin-right: 4px;
+  background-color: #d22c2c;
+  color: white;
+  background-image: linear-gradient(#d22c2c, #6e1b09);
+  border: 2px solid #6e1b09;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+button {
+  color: white;
+}

@@ -164,6 +164,19 @@ header > div {
   color: #d22c2c;
   font-size: 3em;
 }
+#lineChartWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+#lineChartWrapper > h2 {
+  margin-top: 15px;
+  font-size: larger;
+  color: white;
+}
 
 #lineChart {
   margin-top: 15px;
@@ -171,6 +184,15 @@ header > div {
   height: 80%;
   border: 1px solid black;
   border-radius: 2px;
+}
+
+#tableWrapper {
+  text-align: center;
+  color: white;
+}
+#tableWrapper > h3 {
+  margin-top: 15px;
+  font-size: larger;
 }
 
 #table {
