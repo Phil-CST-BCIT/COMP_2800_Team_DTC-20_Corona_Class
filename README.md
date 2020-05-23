@@ -2,14 +2,13 @@
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
 
-Corona Class is a `<web app>` that allows `<any people>` to view the statics related to COVID-19 and learn the known facts about the virus and current situation.
+Corona Class is a Web App that allows people to view the statics related to COVID-19 and learn the known facts about the virus and current situation.
 
 The app provides an account to store personal data and progress.
 The app provides lessons to teach people how to prevent, diagnose COVID-19, and giving proposals.
 The app provides quizzes to test the knowledge about COVID-19.
 The app provides a statistics dashboard to visulize the global COVID-19 data.
 The app provides an open API for other web developsers to use the data visualization in their apps.
-
 
 ## Prerequisites
 
@@ -62,6 +61,7 @@ The server .js file (app.js), favicon, package.json and package-lock.json files 
 To install Corona Class on your machine and start contributing to the project, follow these steps:
 
 On Windows:
+
 0. Ensure you have an IDE that can read and write in the following languages: Javascript (.js), CSS (.css), and html (.html and .ejs). We recommend Visual Studio Code: https://code.visualstudio.com/download
 1. Create a local target repository on your machine where the project will go.
 2. Open Command Prompt, or your preferred shell.
@@ -74,8 +74,8 @@ On Windows:
 9. Enter 'git pull origin dev' (without quotations) and press the Return key.
 10. If you have not installed Node JS on your machine before, visit https://nodejs.org/en/download/ in your browser. Ensure that the 'LTS' option is selected, and select the Installer option that corresponds to your operating system. If you have installed Node JS before, you can skip this step.
 11. In your shell, enter 'npm install' and press the Return key.
-(Note) If mysql2 does not appear as a key in package.json after this, enter 'npm install mysql2' in your shell and press the Return key.
-APIs downloaded by this command include: bcrypt, ejs, express, express-session, mysql2, and session-file-store.
+    (Note) If mysql2 does not appear as a key in package.json after this, enter 'npm install mysql2' in your shell and press the Return key.
+    APIs downloaded by this command include: bcrypt, ejs, express, express-session, mysql2, and session-file-store.
 12. If necessary, the database is hosted on sql3.freemysqlhosting.net on the database: "sql3342447" with username: "sql3342447" and password: "Y2fkhaReIp".
 13. Testing is carried out according to this template: https://drive.google.com/file/d/1mUxavz6uq9thM1V--gmB9_RFgFdLMMnE/view?usp=sharing . New contributors should add their name to the first sheet.
 
